@@ -11,7 +11,7 @@ import io.github.bertderbecker.scalapfui.javafx.{FXElementTag, FXParent}
 object SceneExts {
 
   val Scene: (FXParent[_ <: JFXParent]) => FXElementTag[Scene] =
-    parent => FXElementTag(new Scene(parent.render))
+    parent => FXElementTag(() => new Scene(parent.render))
 
 
 }

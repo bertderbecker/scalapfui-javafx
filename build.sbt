@@ -1,12 +1,12 @@
 name := "scalapfui-javafx"
 
-version := "0.0.1"
+version := "0.0.3"
 
 scalaVersion := "2.12.3"
 
 resolvers += Resolver.mavenLocal
 
-libraryDependencies += "io.github.bertderbecker" %% "scalapfui-core" % "0.0.1"
+libraryDependencies += "io.github.bertderbecker" %% "scalapfui-core" % "0.0.3"
 
 libraryDependencies ++= Seq(
   "org.typelevel" %% "cats-core" % "1.0.0-MF"

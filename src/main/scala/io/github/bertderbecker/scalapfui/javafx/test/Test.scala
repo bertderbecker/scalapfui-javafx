@@ -1,6 +1,9 @@
 package io.github.bertderbecker.scalapfui.javafx.test
 
 import javafx.beans.property.{SimpleIntegerProperty, SimpleStringProperty}
+import javafx.scene.{Scene => JFXScene}
+import javafx.scene.layout.{Pane => JFXPane}
+import javafx.scene.control.{Label => JFXLabel}
 
 import io.github.bertderbecker.scalapfui.Math.Addable
 import io.github.bertderbecker.scalapfui.javafx.attribute.FXReadableAttribute
@@ -98,15 +101,21 @@ object Test extends JFXApp {
     Log.finish("Finished Test")
   }
 
+  def buildLayout(x: Int): FXParent[JFXPane] = Pane()(
+    Label(
+      text := "Hello World!"
+    ),
+    TextField(
+      text := "Entered " + x + " times",
+      onAction := (_ => buildLayout(x + 1))
+    )
+  )
+
   primaryStage =
     Stage(
       title := "IT WORKS!!!!!!!!!!!",
       scene := Scene(
-        Pane()(
-          Label(
-            text := "Hello World!"
-          )
-        )
+        buildLayout(0)
       )()
     )
 }

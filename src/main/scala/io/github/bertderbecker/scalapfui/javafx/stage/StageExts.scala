@@ -15,7 +15,7 @@ import io.github.bertderbecker.scalapfui.javafx.Implicits._
 //Ready
 object StageExts {
 
-  val Stage = FXElementTag(new Stage())
+  val Stage = FXElementTag(() => new Stage())
 
 
   val scene: Attribute[FXElement[Scene], Stage] =
@@ -29,7 +29,7 @@ object StageExts {
             .build()
             .asInstanceOf[JFXProperty[Scene]]
         )
-      )(FXElement.wrap)(_.render)
+      )(p => FXElement.wrap(p))(_.render)
     }
 
 

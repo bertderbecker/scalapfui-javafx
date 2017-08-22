@@ -19,7 +19,7 @@ trait JFXApp {
   }
 
   def main(args: Array[String]): Unit = {
-    println("Main")
+    //println("Main")
     JFXApp.ActiveApp = this
     Application.launch(classOf[JFXApp.AppHelper], args: _*)
   }
@@ -40,6 +40,8 @@ object JFXApp {
       JFXApp.ActiveJFXApp = this
       JFXApp.Stage = JFXApp.getUserDefinedStage(stage)
       JFXApp.ActiveApp.init()
+      //println("Scene root: " + JFXApp.Stage.getScene.getRoot)
+      //println("Scene root children: " + JFXApp.Stage.getScene.getRoot.getChildrenUnmodifiable)
       if (JFXApp.AutoShow) {
         JFXApp.Stage.show()
       }
@@ -55,7 +57,7 @@ object JFXApp {
   var wrappedStage: () => FXElement[Stage] = _
 
   def getUserDefinedStage(primaryStage: Stage): Stage =
-    wrappedStage().withChangedPureElement(primaryStage).render
+    wrappedStage().withChangedPure(primaryStage).render
 
 
   var ActiveApp: JFXApp = _

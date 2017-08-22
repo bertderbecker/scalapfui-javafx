@@ -13,17 +13,18 @@ object LabelExts {
 
     implicit class UILabelOps(element: FXElement[Label]) {
       def labelFor[N <: Node](other: FXElement[N]): FXElement[LabeledPair[N]] =
-        new FXElement[LabeledPair[N]](LabeledPair(element, other)) {
+        new FXElement[LabeledPair[N]](() => LabeledPair(element, other)) {
           override def render: LabeledPair[N] = {
-            pure.label.pure.setLabelFor(other.pure)
-            pure
+            val p = pure()
+            p.label.pure().setLabelFor(other.pure())
+            p
           }
         }
     }
 
   }
 
-  val Label: FXElementTag[Label] = FXElementTag[Label](new Label())
+  val Label: FXElementTag[Label] = FXElementTag[Label](() => new Label())
 
 
   case class LabeledPair[N <: Node](label: FXElement[Label], other: FXElement[N]) extends Parent {
