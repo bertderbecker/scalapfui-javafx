@@ -1,23 +1,22 @@
 package io.github.bertderbecker.scalapfui.javafx.test
 
 import javafx.beans.property.{SimpleIntegerProperty, SimpleStringProperty}
-import javafx.scene.{Scene => JFXScene}
 import javafx.scene.layout.{Pane => JFXPane}
-import javafx.scene.control.{Label => JFXLabel}
+import javafx.scene.{Scene => JFXScene}
 
 import io.github.bertderbecker.scalapfui.Math.Addable
-import io.github.bertderbecker.scalapfui.javafx.attribute.FXReadableAttribute
-import io.github.bertderbecker.scalapfui.javafx.{FXParent, JFXApp, Log}
-import io.github.bertderbecker.scalapfui.javafx.property.{FXProperty, FXReadableProperty}
-import io.github.bertderbecker.scalapfui.property.{Property, ReadableProperty}
 import io.github.bertderbecker.scalapfui.javafx.Implicits._
-import io.github.bertderbecker.scalapfui.javafx.scene.layout.PaneExts._
+import io.github.bertderbecker.scalapfui.javafx.attribute.FXReadableAttribute
+import io.github.bertderbecker.scalapfui.javafx.property.{FXProperty, FXReadableProperty}
+import io.github.bertderbecker.scalapfui.javafx.scene.SceneExts._
 import io.github.bertderbecker.scalapfui.javafx.scene.control.LabelExts._
 import io.github.bertderbecker.scalapfui.javafx.scene.control.Text
-import Text._
-import io.github.bertderbecker.scalapfui.javafx.stage.StageExts._
+import io.github.bertderbecker.scalapfui.javafx.scene.control.Text._
 import io.github.bertderbecker.scalapfui.javafx.scene.control.TextFieldExts._
-import io.github.bertderbecker.scalapfui.javafx.scene.SceneExts._
+import io.github.bertderbecker.scalapfui.javafx.scene.layout.PaneExts._
+import io.github.bertderbecker.scalapfui.javafx.stage.StageExts._
+import io.github.bertderbecker.scalapfui.javafx.{FXParent, JFXApp, Log}
+import io.github.bertderbecker.scalapfui.property.{Property, ReadableProperty}
 
 import scala.language.postfixOps
 
@@ -101,15 +100,16 @@ object Test extends JFXApp {
     Log.finish("Finished Test")
   }
 
-  def buildLayout(x: Int): FXParent[JFXPane] = Pane()(
-    Label(
-      text := "Hello World!"
-    ),
-    TextField(
-      text := "Entered " + x + " times",
-      onAction := (_ => buildLayout(x + 1))
+  def buildLayout(x: Int): FXParent[JFXPane] =
+    Pane()(
+      Label(
+        text := "Hello World!"
+      ),
+      TextField(
+        text := "Entered " + x + " times",
+        onAction := (_ => buildLayout(x + 1))
+      )
     )
-  )
 
   primaryStage =
     Stage(

@@ -5,9 +5,9 @@ import javafx.scene.control.{Labeled, OverrunStyle, ContentDisplay => JFXContent
 import javafx.scene.paint.Paint
 import javafx.scene.text.{Font, TextAlignment => JFXTextAlignment}
 
-import io.github.bertderbecker.scalapfui.javafx.Implicits._
 import io.github.bertderbecker.scalapfui.Modifier
 import io.github.bertderbecker.scalapfui.attribute.{Attribute, ReadableAttribute}
+import io.github.bertderbecker.scalapfui.javafx.Implicits._
 import io.github.bertderbecker.scalapfui.javafx.attribute.{FXAttribute, FXReadableAttribute}
 import io.github.bertderbecker.scalapfui.javafx.geometry.Insets
 

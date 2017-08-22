@@ -1,7 +1,7 @@
 package io.github.bertderbecker.scalapfui.javafx
 
 object Log {
-  
+
   var list: Seq[String] = Seq.empty
 
   def apply(text: String): Unit = {

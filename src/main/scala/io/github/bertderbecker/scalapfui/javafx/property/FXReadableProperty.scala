@@ -29,7 +29,7 @@ case class FXReadableProperty[T](property: ObservableValue[T])
   override def calcValue: Option[T] = Option(property.getValue)
 
   override def removeOnChange(op: (ReadableProperty[T], T, T) => Unit): Unit = property.removeListener(onChangeListeners(op))
-  
+
 }
 
 
@@ -44,7 +44,7 @@ object FXReadableProperty {
 
     implicit private val readablePropertyFunctor: Functor[ReadableProperty] =
       new Functor[ReadableProperty] {
-        override def map[A, B](fa: ReadableProperty[A])(f: A => B): ReadableProperty[B] = 
+        override def map[A, B](fa: ReadableProperty[A])(f: A => B): ReadableProperty[B] =
           new ReadableProperty[B] {
 
             override def processOnChange(op: (ReadableProperty[B], B, B) => Unit): Unit = {
@@ -58,7 +58,7 @@ object FXReadableProperty {
             }
 
           }
-        
+
       }
 
 

@@ -1,17 +1,18 @@
 package io.github.bertderbecker.scalapfui.javafx.attribute
 
-import io.github.bertderbecker.scalapfui.attribute.Attribute
-import io.github.bertderbecker.scalapfui.property.Property
 import javafx.beans.property.{SimpleObjectProperty, Property => JFXProperty}
 import javafx.beans.value.{ChangeListener, ObservableValue}
 import javafx.event.{Event, EventHandler}
-import javafx.scene.{Node, Scene, Parent => JFXParent}
-import javafx.stage.Stage
+import javafx.scene.{Scene, Parent => JFXParent}
+import javafx.stage.{Stage, Window}
 
+import io.github.bertderbecker.scalapfui.attribute.Attribute
 import io.github.bertderbecker.scalapfui.javafx.FXElement
 import io.github.bertderbecker.scalapfui.javafx.property.FXProperty
+import io.github.bertderbecker.scalapfui.property.Property
 
 object FXAttribute extends AttributeCompanion[Attribute, JFXProperty] {
+
   implicit class propertyImplicits[Element](prop: ObservableValue[Element]) {
     def onChange(u: Element => Unit): Unit = prop.addListener(new ChangeListener[Element] {
       override def changed(observable: ObservableValue[_ <: Element],
@@ -31,25 +32,23 @@ object FXAttribute extends AttributeCompanion[Attribute, JFXProperty] {
     }
 
   def fromProperty[T, Native](
-                        propertyExtractor: Native => Property[T]
-                      ): Attribute[T, Native] =
+                               propertyExtractor: Native => Property[T]
+                             ): Attribute[T, Native] =
 
     new Attribute[T, Native] {
       override def propertyExtr: Native => Property[T] = propertyExtractor
     }
 
-  def forEventHandler[T <: Event, Native <: Node](
-                                            op: Native => JFXProperty[EventHandler[T]]
-                                          ): Attribute[T => FXElement[_ <: JFXParent], Native] = {
+  def forEventHandler[T <: Event, Native](
+                                           op: Native => JFXProperty[EventHandler[T]],
+                                           window: Native => Window
+                                         ): Attribute[T => FXElement[_ <: JFXParent], Native] = {
     apply[T => FXElement[_ <: JFXParent], Native] { native =>
       val p = new SimpleObjectProperty[T => FXElement[_ <: JFXParent]]()
       p.onChange { newValue =>
         op(native).setValue { event =>
           //println("Action!!")
-          val stage = native
-            .getScene
-            .getWindow
-            .asInstanceOf[Stage]
+          val stage = window(native).asInstanceOf[Stage]
           stage.setScene(new Scene(newValue(event).render))
         }
       }

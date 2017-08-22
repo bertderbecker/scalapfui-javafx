@@ -1,10 +1,10 @@
 package io.github.bertderbecker.scalapfui.javafx
 
-import io.github.bertderbecker.scalapfui.attribute.{Attribute, ReadableAttribute}
 import javafx.scene.{Parent => JFXParent}
 
 import cats.functor.Invariant
 import io.github.bertderbecker.scalapfui.Math.MathInstances
+import io.github.bertderbecker.scalapfui.attribute.{Attribute, ReadableAttribute}
 import io.github.bertderbecker.scalapfui.extras.Includes
 import io.github.bertderbecker.scalapfui.javafx.attribute.FXReadableAttribute.ReadableAttributeInstances
 import io.github.bertderbecker.scalapfui.javafx.geometry.Insets
@@ -222,16 +222,14 @@ object Implicits
       i => new javafx.geometry.Insets(i.top, i.right, i.bottom, i.left))
 
 
-
-
-
-
   implicit def renderFXElement[N](fxelement: FXElement[N]): N = fxelement.render
+
   implicit def renderFXParent[N <: JFXParent](fxparent: FXParent[N]): N = fxparent.render
 
 
-  implicit class InvariantImplicits[F[_]  <: AnyRef: Invariant, A](x: F[A]) {
+  implicit class InvariantImplicits[F[_] <: AnyRef : Invariant, A](x: F[A]) {
     def imap[B](f: (A) ⇒ B)(g: (B) ⇒ A): F[B] =
       implicitly[Invariant[F]].imap(x)(f)(g)
   }
+
 }

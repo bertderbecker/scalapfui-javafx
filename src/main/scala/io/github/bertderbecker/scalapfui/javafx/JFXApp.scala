@@ -3,12 +3,12 @@ package io.github.bertderbecker.scalapfui.javafx
 import javafx.application.Application
 import javafx.stage.Stage
 
-
 import scala.collection.mutable.ListBuffer
 
 trait JFXApp {
 
   def primaryStage: FXElement[Stage] = JFXApp.wrappedStage()
+
   def primaryStage_=(newStage: => FXElement[Stage]): Unit =
     JFXApp.wrappedStage = () => newStage
 

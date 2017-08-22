@@ -1,16 +1,16 @@
 package io.github.bertderbecker.scalapfui.javafx.stage
 
-import javafx.beans.property.adapter.{JavaBeanObjectProperty, JavaBeanObjectPropertyBuilder}
+import javafx.beans.property.adapter.JavaBeanObjectPropertyBuilder
+import javafx.beans.property.{Property => JFXProperty}
 import javafx.scene.Scene
 import javafx.scene.input.KeyCombination
 import javafx.stage.Stage
-import javafx.beans.property.{SimpleObjectProperty, Property => JFXProperty}
 
 import io.github.bertderbecker.scalapfui.attribute.{Attribute, ReadableAttribute}
+import io.github.bertderbecker.scalapfui.javafx.Implicits._
 import io.github.bertderbecker.scalapfui.javafx.attribute.{FXAttribute, FXReadableAttribute}
 import io.github.bertderbecker.scalapfui.javafx.property.FXProperty
 import io.github.bertderbecker.scalapfui.javafx.{FXElement, FXElementTag}
-import io.github.bertderbecker.scalapfui.javafx.Implicits._
 
 //Ready
 object StageExts {
