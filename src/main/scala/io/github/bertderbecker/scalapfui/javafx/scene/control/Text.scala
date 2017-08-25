@@ -15,10 +15,12 @@ object Text {
 
   val text: Attribute[String, Text] = FXAttribute[String, Text](_.property)
 
-  implicit def text2LabeledMod(mod: Modifier[String, Text]): Modifier[String, Labeled] =
+  implicit def text2LabeledMod[T <: Labeled](mod: Modifier[String, Text]): Modifier[String, T] =
     mod.mapApply[Labeled](native => Text(native.textProperty()))
 
 
-  implicit def text2TextInputControlMod(mod: Modifier[String, Text]): Modifier[String, TextInputControl] =
-    mod.mapApply[TextInputControl](native => Text(native.textProperty()))
+  implicit def text2TextInputControlMod[T <: TextInputControl](
+                                                                mod: Modifier[String, Text]
+                                                              ): Modifier[String, T] =
+    mod.mapApply[T](native => Text(native.textProperty()))
 }

@@ -9,17 +9,11 @@ import io.github.bertderbecker.scalapfui.javafx.FXElement
 import io.github.bertderbecker.scalapfui.javafx.Implicits._
 import io.github.bertderbecker.scalapfui.javafx.attribute.{FXAttribute, FXReadableAttribute}
 
+//Ready
 object WindowExts {
-
-  val eventDispatcher: Attribute[EventDispatcher, Window] =
-    FXAttribute[EventDispatcher, Window](_.eventDispatcherProperty())
-
 
   val focused: ReadableAttribute[Boolean, Window] =
     FXReadableAttribute[java.lang.Boolean, Window](_.focusedProperty().asObject())
-
-  val height: ReadableAttribute[Double, Window] =
-    FXReadableAttribute[java.lang.Double, Window](_.heightProperty().asObject())
 
   val onCloseRequest: Attribute[WindowEvent => FXElement[_ <: JFXParent], Window] =
     FXAttribute.forEventHandler(_.onCloseRequestProperty(), _.asInstanceOf)
@@ -45,12 +39,10 @@ object WindowExts {
   val showing: ReadableAttribute[Boolean, Window] =
     FXReadableAttribute[java.lang.Boolean, Window](_.showingProperty().asObject())
 
-  val width: ReadableAttribute[Double, Window] =
-    FXReadableAttribute[java.lang.Double, Window](_.widthProperty().asObject())
-
   val x: ReadableAttribute[Double, Window] =
     FXReadableAttribute[java.lang.Double, Window](_.xProperty().asObject())
 
   val y: ReadableAttribute[Double, Window] =
     FXReadableAttribute[java.lang.Double, Window](_.yProperty().asObject())
+
 }

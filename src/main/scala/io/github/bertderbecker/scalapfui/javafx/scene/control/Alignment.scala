@@ -3,6 +3,7 @@ package io.github.bertderbecker.scalapfui.javafx.scene.control
 import javafx.beans.property.{Property => JFXProperty}
 import javafx.geometry.Pos
 import javafx.scene.control.{Labeled, TextField}
+import javafx.scene.layout.VBox
 
 import io.github.bertderbecker.scalapfui.Modifier
 import io.github.bertderbecker.scalapfui.attribute.Attribute
@@ -32,10 +33,13 @@ object Alignment {
     val TopRight: Modifier[Pos, Alignment] = alignment := Pos.TOP_RIGHT
   }
 
-  implicit def text2LabeledMod(mod: Modifier[Pos, Alignment]): Modifier[Pos, Labeled] =
+  implicit def text2LabeledMod[T <: Labeled](mod: Modifier[Pos, Alignment]): Modifier[Pos, T] =
     mod.mapApply[Labeled](native => new Alignment(native.alignmentProperty()))
 
-
-  implicit def text2TextFieldlMod(mod: Modifier[Pos, Alignment]): Modifier[Pos, TextField] =
+  implicit def text2TextFieldlMod[T <: TextField](mod: Modifier[Pos, Alignment]): Modifier[Pos, T] =
     mod.mapApply[TextField](native => new Alignment(native.alignmentProperty()))
+
+  implicit def text2VBoxMod[T <: VBox](mod: Modifier[Pos, Alignment]): Modifier[Pos, T] =
+    mod.mapApply[VBox](native => new Alignment(native.alignmentProperty()))
+
 }
