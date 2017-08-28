@@ -24,8 +24,7 @@ object Test extends JFXApp {
     Pane()(
       Label(
         text := "Hello World!"
-      )
-      ,
+      ),
       TextField(
         text := "Entered " + x + " times",
         onAction := (_ => buildLayout(x + 1))
