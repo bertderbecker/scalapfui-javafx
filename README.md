@@ -29,7 +29,6 @@ object Test extends JFXApp {
       TextField(
         text := "Entered " + x + " times",
         onAction := (_ => buildLayout(x + 1))
-        //, onContextMenuRequested := (_ => buildLayout(x - 1))
       )
     )
 
