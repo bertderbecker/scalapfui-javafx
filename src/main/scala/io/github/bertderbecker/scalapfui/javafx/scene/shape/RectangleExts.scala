@@ -1,5 +1,6 @@
 package io.github.bertderbecker.scalapfui.javafx.scene.shape
 
+import javafx.beans.property.Property
 import javafx.scene.shape.{Rectangle => JFXRectangle}
 
 import io.github.bertderbecker.scalapfui.attribute.{Attribute, ReadableAttribute}
@@ -32,12 +33,12 @@ object RectangleExts {
   implicit def readableHeightAttr2HeightAttr(
                                               readable: ReadableAttribute[Double, Height]
                                             ): Attribute[Double, JFXRectangle] =
-    FXAttribute(_.heightProperty().asObject())
+    FXAttribute[java.lang.Double, JFXRectangle](_.heightProperty().asObject())
 
 
   implicit def readableWidthAttr2WidthAttr(
                                               readable: ReadableAttribute[Double, Width]
                                             ): Attribute[Double, JFXRectangle] =
-    FXAttribute(_.widthProperty().asObject())
+    FXAttribute[java.lang.Double, JFXRectangle](_.widthProperty().asObject())
 
 }

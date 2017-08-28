@@ -7,7 +7,7 @@ import javafx.scene.{Scene, Parent => JFXParent}
 import javafx.stage.{Stage, Window}
 
 import io.github.bertderbecker.scalapfui.attribute.Attribute
-import io.github.bertderbecker.scalapfui.javafx.FXElement
+import io.github.bertderbecker.scalapfui.javafx.{FXElement, JFXApp}
 import io.github.bertderbecker.scalapfui.javafx.property.FXProperty
 import io.github.bertderbecker.scalapfui.property.Property
 
@@ -40,15 +40,16 @@ object FXAttribute extends AttributeCompanion[Attribute, JFXProperty] {
     }
 
   def forEventHandler[T <: Event, Native](
-                                           op: Native => JFXProperty[EventHandler[T]],
+                                           op: Native => Property[EventHandler[T]],
                                            window: Native => Window
                                          ): Attribute[T => FXElement[_ <: JFXParent], Native] = {
     apply[T => FXElement[_ <: JFXParent], Native] { native =>
       val p = new SimpleObjectProperty[T => FXElement[_ <: JFXParent]]()
       p.onChange { newValue =>
-        op(native).setValue { event =>
-          //println("Action!!")
-          val stage = window(native).asInstanceOf[Stage]
+        op(native).update { event =>
+          println("Action!!")
+          val stage = JFXApp.Stage
+          println("Stage = " + stage)
           stage.setScene(new Scene(newValue(event).render))
         }
       }

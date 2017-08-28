@@ -1,8 +1,10 @@
 package io.github.bertderbecker.scalapfui.javafx.scene.layout
 
 import io.github.bertderbecker.scalapfui.javafx.{FXElementTag, FXParent, FXParentTag}
-import javafx.scene.layout.{Background, Border, Region => JFXRegion}
+import javafx.scene.layout.{BackgroundFill, Border, CornerRadii, Background => JFXBackground, Region => JFXRegion}
+import javafx.scene.paint.Paint
 import javafx.scene.shape.Shape
+import javafx.geometry.{Insets => JFXInsets}
 
 import io.github.bertderbecker.scalapfui.attribute.{Attribute, ReadableAttribute}
 import io.github.bertderbecker.scalapfui.javafx.Implicits._
@@ -13,8 +15,13 @@ object RegionExts {
 
   val Region: FXElementTag[JFXRegion] = FXElementTag(() => new JFXRegion())
 
-  val background: Attribute[Background, JFXRegion] =
-    FXAttribute[Background, JFXRegion](_.backgroundProperty())
+  val background: Attribute[JFXBackground, JFXRegion] =
+    FXAttribute[JFXBackground, JFXRegion](_.backgroundProperty())
+
+  object Background {
+    def fillWidth(paint: Paint) =
+      new JFXBackground(new BackgroundFill(paint, CornerRadii.EMPTY, JFXInsets.EMPTY))
+  }
 
   val border: Attribute[Border, JFXRegion] =
     FXAttribute[Border, JFXRegion](_.borderProperty())

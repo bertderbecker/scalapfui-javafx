@@ -54,7 +54,6 @@ object LabeledExts {
     val Right: Modifier[JFXTextAlignment, Labeled] = textAlignment := JFXTextAlignment.RIGHT
   }
 
-  //TODO: support Colors
   val textFill: Attribute[Paint, Labeled] = FXAttribute[Paint, Labeled](_.textFillProperty())
 
   //TODO: support OverrunStyle

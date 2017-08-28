@@ -15,7 +15,7 @@ import io.github.bertderbecker.scalapfui.javafx.scene.control.TextFieldExts
 
 import scala.language.implicitConversions
 
-//Almost Ready
+//Ready
 object NodeExts {
 
   val accessibleHelp: Attribute[String, Node] =
@@ -113,8 +113,6 @@ object NodeExts {
 
   val nodeOrientation: ReadableAttribute[NodeOrientation, Node] =
     FXReadableAttribute[NodeOrientation, Node](_.nodeOrientationProperty())
-
-  //TODO: add Event Listeners
 
   val parent: ReadableAttribute[Parent, Node] =
     FXReadableAttribute[Parent, Node](_.parentProperty())

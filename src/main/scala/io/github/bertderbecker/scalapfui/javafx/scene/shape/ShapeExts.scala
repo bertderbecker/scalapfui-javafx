@@ -15,7 +15,6 @@ import io.github.bertderbecker.scalapfui.javafx.attribute.FXAttribute
 //Ready
 object ShapeExts {
 
-  //TODO: support Colors
   val fill: Attribute[Paint, Shape] = FXAttribute[Paint, Shape](_.fillProperty())
 
   val smooth: Attribute[Boolean, Shape] =

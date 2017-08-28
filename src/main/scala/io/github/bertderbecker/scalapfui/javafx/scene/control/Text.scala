@@ -1,7 +1,7 @@
 package io.github.bertderbecker.scalapfui.javafx.scene.control
 
 import javafx.beans.property.{Property => JFXProperty}
-import javafx.scene.control.{Labeled, TextInputControl}
+import javafx.scene.control.{Labeled, MenuItem, TextInputControl}
 
 import io.github.bertderbecker.scalapfui.Modifier
 import io.github.bertderbecker.scalapfui.attribute.Attribute
@@ -22,5 +22,10 @@ object Text {
   implicit def text2TextInputControlMod[T <: TextInputControl](
                                                                 mod: Modifier[String, Text]
                                                               ): Modifier[String, T] =
+    mod.mapApply[T](native => Text(native.textProperty()))
+
+  implicit def text2MenuItemMod[T <: MenuItem](
+                                                mod: Modifier[String, Text]
+                                              ): Modifier[String, T] =
     mod.mapApply[T](native => Text(native.textProperty()))
 }
