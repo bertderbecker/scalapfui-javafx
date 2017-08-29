@@ -15,6 +15,8 @@ import io.github.bertderbecker.scalapfui.javafx.attribute.{FXAttribute, FXReadab
 import io.github.bertderbecker.scalapfui.javafx.property.FXProperty
 import io.github.bertderbecker.scalapfui.property.Property
 
+import scala.language.implicitConversions
+
 object MenuItemExts {
 
 
@@ -42,7 +44,7 @@ object MenuItemExts {
                              )
 
   val onMenuValidation: Attribute[Event => FXElement[_ <: JFXParent], OnMenuValidation] =
-    FXAttribute.forEventHandler(_.property, _.window)
+    FXAttribute.forEventHandlerUnwrapped(_.property)
 
   implicit def onMenuValidation2MenuMod(
                                          mod: Modifier[

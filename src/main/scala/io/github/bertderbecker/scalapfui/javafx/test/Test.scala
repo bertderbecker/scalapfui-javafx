@@ -1,18 +1,18 @@
 package io.github.bertderbecker.scalapfui.javafx.test
 
 import javafx.scene.layout.{Pane => JFXPane}
-import javafx.scene.{Scene => JFXScene}
 
 import io.github.bertderbecker.scalapfui.javafx.scene.SceneExts._
 import io.github.bertderbecker.scalapfui.javafx.scene.control.Actions._
-import io.github.bertderbecker.scalapfui.javafx.scene.control.LabelExts._
 import io.github.bertderbecker.scalapfui.javafx.scene.control.Text._
-import io.github.bertderbecker.scalapfui.javafx.scene.control.TextFieldExts._
+import io.github.bertderbecker.scalapfui.javafx.scene.layout.OrderedBoxes._
 import io.github.bertderbecker.scalapfui.javafx.scene.layout.PaneExts._
 import io.github.bertderbecker.scalapfui.javafx.stage.StageExts._
 import io.github.bertderbecker.scalapfui.javafx.scene.control.MenuBarExts._
 import io.github.bertderbecker.scalapfui.javafx.scene.control.MenuItemExts._
 import io.github.bertderbecker.scalapfui.javafx.{FXParent, JFXApp}
+import io.github.bertderbecker.scalapfui.javafx.scene.control.TextFieldExts._
+import io.github.bertderbecker.scalapfui.javafx.scene.control.NodeActions._
 import io.github.bertderbecker.scalapfui.javafx.scene.control.MenuExts._
 
 import scala.language.postfixOps
@@ -110,12 +110,17 @@ object Test extends JFXApp {
         Menu(
           MenuItem(
             text := "" + x + " Actions",
-            onAction := (_ => buildLayout(x + 5))
+            onAction := (_ => buildLayout(x + 1))
           )
         )(
           text := "Menu"
         )
-      )()
+      )(),
+      TextField(
+        text := "" + x + " Actions",
+        onAction := (_ => buildLayout(x + 1)),
+        onContextMenuRequested := (_ => buildLayout(x - 1))
+      )
     )
 
   primaryStage =

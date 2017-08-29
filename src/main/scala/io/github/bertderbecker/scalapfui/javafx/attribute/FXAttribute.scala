@@ -10,6 +10,7 @@ import io.github.bertderbecker.scalapfui.attribute.Attribute
 import io.github.bertderbecker.scalapfui.javafx.{FXElement, JFXApp}
 import io.github.bertderbecker.scalapfui.javafx.property.FXProperty
 import io.github.bertderbecker.scalapfui.property.Property
+import io.github.bertderbecker.scalapfui.javafx.Implicits._
 
 object FXAttribute extends AttributeCompanion[Attribute, JFXProperty] {
 
@@ -39,9 +40,8 @@ object FXAttribute extends AttributeCompanion[Attribute, JFXProperty] {
       override def propertyExtr: Native => Property[T] = propertyExtractor
     }
 
-  def forEventHandler[T <: Event, Native](
-                                           op: Native => Property[EventHandler[T]],
-                                           window: Native => Window
+  def forEventHandlerUnwrapped[T <: Event, Native](
+                                                    op: Native => Property[EventHandler[T]]
                                          ): Attribute[T => FXElement[_ <: JFXParent], Native] = {
     apply[T => FXElement[_ <: JFXParent], Native] { native =>
       val p = new SimpleObjectProperty[T => FXElement[_ <: JFXParent]]()
@@ -56,5 +56,13 @@ object FXAttribute extends AttributeCompanion[Attribute, JFXProperty] {
       p
     }
   }
+
+  def forEventHandler[T <: Event, Native](
+                                           op: Native => JFXProperty[_ >: EventHandler[_ >: T <: Event]]
+                                         ): Attribute[T => FXElement[_ <: JFXParent], Native] =
+    forEventHandlerUnwrapped[T, Native](native =>
+      propertyInvariant.imap(FXProperty(op(native))
+      )(_.asInstanceOf[EventHandler[T]]
+      )(_.asInstanceOf[EventHandler[_ >: T <: Event]]))
 
 }

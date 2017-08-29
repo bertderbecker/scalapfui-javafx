@@ -12,6 +12,8 @@ import io.github.bertderbecker.scalapfui.javafx.attribute.FXAttribute
 import io.github.bertderbecker.scalapfui.javafx.property.FXProperty
 import io.github.bertderbecker.scalapfui.property.Property
 
+import scala.language.implicitConversions
+
 object VisibleActions {
 
 
@@ -21,7 +23,7 @@ object VisibleActions {
                      )
 
   val onHidden: Attribute[Event => FXElement[_ <: JFXParent], OnHidden] =
-    FXAttribute.forEventHandler(_.property, _.window)
+    FXAttribute.forEventHandlerUnwrapped(_.property)
 
   implicit def onHidden2MenuMod(
                                  mod: Modifier[
@@ -46,7 +48,7 @@ object VisibleActions {
                      )
 
   val onHiding: Attribute[Event => FXElement[_ <: JFXParent], OnHiding] =
-    FXAttribute.forEventHandler(_.property, _.window)
+    FXAttribute.forEventHandlerUnwrapped(_.property)
 
   implicit def onHiding2MenuMod(
                                  mod: Modifier[
@@ -70,7 +72,7 @@ object VisibleActions {
                       )
 
   val onShowing: Attribute[Event => FXElement[_ <: JFXParent], OnShowing] =
-    FXAttribute.forEventHandler(_.property, _.window)
+    FXAttribute.forEventHandlerUnwrapped(_.property)
 
   implicit def onShowing2MenuMod(
                                   mod: Modifier[
@@ -94,7 +96,7 @@ object VisibleActions {
                     )
 
   val onShown: Attribute[Event => FXElement[_ <: JFXParent], OnShown] =
-    FXAttribute.forEventHandler(_.property, _.window)
+    FXAttribute.forEventHandlerUnwrapped(_.property)
 
   implicit def onShown2MenuMod(
                                 mod: Modifier[

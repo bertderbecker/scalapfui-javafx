@@ -14,7 +14,7 @@ import io.github.bertderbecker.scalapfui.javafx.scene.control.Alignment
 
 import scala.language.implicitConversions
 
-class OrderedBoxes {
+object OrderedBoxes {
 
   val VBox: FXParentTag[JFXVBox] = FXParentTag(() => new JFXVBox(), _.getChildren)
   val HBox: FXParentTag[JFXHBox] = FXParentTag(() => new JFXHBox(), _.getChildren)
