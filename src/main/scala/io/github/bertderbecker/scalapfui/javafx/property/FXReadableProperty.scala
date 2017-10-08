@@ -5,13 +5,13 @@ import javafx.beans.value.{ChangeListener, ObservableValue}
 
 import cats.{Functor, Monad}
 import io.github.bertderbecker.scalapfui.extras.Includes._
-import io.github.bertderbecker.scalapfui.property.{NestedReadableProperty, ReadableProperty}
+import io.github.bertderbecker.scalapfui.property.{NestedReadableProperty, Property, ReadableProperty}
 
 import scala.collection.mutable
 
 
 case class FXReadableProperty[T](property: ObservableValue[T])
-  extends NestedReadableProperty[T, ObservableValue] {
+  extends ReadableProperty[T] {
 
   val onChangeListeners: mutable.HashMap[(ReadableProperty[T], T, T) => Unit, ChangeListener[T]] = mutable.HashMap.empty
 

@@ -10,7 +10,7 @@ import io.github.bertderbecker.scalapfui.property._
 import scala.language.higherKinds
 
 case class FXProperty[T](jFXProperty: JFXProperty[T])
-  extends NestedProperty[T, ObservableValue] {
+  extends NestedProperty[T] {
 
 
   override def doBidirectionalBinding(other: Property[T]): Unit = {
@@ -29,8 +29,8 @@ case class FXProperty[T](jFXProperty: JFXProperty[T])
 
   }
 
-  override val nestedWritableProperty: NestedWritableProperty[T] = FXWritableProperty(jFXProperty)
-  override val nestedReadableProperty: NestedReadableProperty[T, ObservableValue] = FXReadableProperty(jFXProperty)
+  override val writableProperty: WritableProperty[T] = FXWritableProperty(jFXProperty)
+  override val readableProperty: ReadableProperty[T] = FXReadableProperty(jFXProperty)
 
 }
 
