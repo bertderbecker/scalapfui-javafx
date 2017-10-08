@@ -10,7 +10,7 @@ import io.github.bertderbecker.scalapfui.javafx.{FXElement, FXElementTag}
 object MenuExts {
 
   val Menu: (FXElement[_ <: MenuItem]*) => FXElementTag[JFXMenu] =
-    (items: Seq[FXElement[_ <: MenuItem]]) =>
+    (items: FXElement[_ <: MenuItem]*) =>
       FXElementTag(
         () => {
           val m = new JFXMenu()

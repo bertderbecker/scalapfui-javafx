@@ -1,8 +1,12 @@
 name := "scalapfui-javafx"
 
+organization := "io.github.bertderbecker"
+
 version := "0.0.3"
 
 scalaVersion := "2.12.3"
+
+isSnapshot := true
 
 resolvers += Resolver.mavenLocal
 
