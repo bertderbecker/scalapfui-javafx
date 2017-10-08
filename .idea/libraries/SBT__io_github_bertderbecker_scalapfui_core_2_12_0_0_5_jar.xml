@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="SBT: io.github.bertderbecker:scalapfui-core_2.12:0.0.5:jar">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/io/github/bertderbecker/scalapfui-core_2.12/0.0.5/scalapfui-core_2.12-0.0.5.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/io/github/bertderbecker/scalapfui-core_2.12/0.0.5/scalapfui-core_2.12-0.0.5-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -8,6 +8,8 @@ import io.github.bertderbecker.scalapfui.Modifier
 import io.github.bertderbecker.scalapfui.attribute.Attribute
 import io.github.bertderbecker.scalapfui.javafx.attribute.FXAttribute
 
+import scala.language.implicitConversions
+
 case class Style(property: StringProperty)
 
 object Style {

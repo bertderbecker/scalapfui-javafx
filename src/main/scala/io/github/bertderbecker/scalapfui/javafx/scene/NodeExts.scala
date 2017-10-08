@@ -140,8 +140,7 @@ object NodeExts {
 
   //TODO: Is a ReadableAttribute "Scene" necessary?
 
-  val style: Attribute[String, Node] =
-    FXAttribute[String, Node](_.styleProperty())
+  //Style is ready
 
   val translateX: Attribute[Double, Node] =
     FXAttribute[java.lang.Double, Node](_.translateXProperty().asObject())

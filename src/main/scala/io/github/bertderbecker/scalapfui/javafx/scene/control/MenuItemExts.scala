@@ -17,6 +17,7 @@ import io.github.bertderbecker.scalapfui.property.Property
 
 import scala.language.implicitConversions
 
+//Ready
 object MenuItemExts {
 
 
@@ -37,6 +38,8 @@ object MenuItemExts {
   val mnemonicParsing: Attribute[Boolean, JFXMenuItem] =
     FXAttribute[java.lang.Boolean, JFXMenuItem](_.mnemonicParsingProperty())
 
+
+  //onAction is ready
 
   case class OnMenuValidation(
                                property: Property[EventHandler[Event]],
@@ -68,7 +71,9 @@ object MenuItemExts {
   val parentPopup: ReadableAttribute[ContextMenu, JFXMenuItem] =
     FXReadableAttribute[ContextMenu, JFXMenuItem](_.parentPopupProperty())
 
-  //TODO: add style from node
+  //Style is ready
+
+  //Text is ready
 
   val visible: Attribute[Boolean, JFXMenuItem] =
     FXAttribute[java.lang.Boolean, JFXMenuItem](_.visibleProperty())

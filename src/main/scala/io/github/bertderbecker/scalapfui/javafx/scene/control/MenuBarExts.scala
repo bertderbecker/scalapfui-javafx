@@ -13,11 +13,10 @@ import io.github.bertderbecker.scalapfui.javafx.attribute.FXAttribute
 object MenuBarExts {
 
 
-  val MenuBar: (FXElement[_ <: Menu] *) => FXElementTag[JFXMenuBar] =
+  val MenuBar: (FXElement[_ <: Menu]*) => FXElementTag[JFXMenuBar] =
     (elements: Seq[FXElement[_ <: Menu]]) => FXElementTag(() => new JFXMenuBar(elements.map(_.render): _*))
 
   val useSystemMenuBar: Attribute[Boolean, JFXMenuBar] =
     FXAttribute[java.lang.Boolean, JFXMenuBar](_.useSystemMenuBarProperty())
-
 
 }

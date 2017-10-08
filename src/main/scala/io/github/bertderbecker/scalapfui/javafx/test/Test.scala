@@ -1,6 +1,7 @@
 package io.github.bertderbecker.scalapfui.javafx.test
 
 import javafx.scene.layout.{Pane => JFXPane}
+import javafx.scene.layout.{VBox => JFXVBox}
 
 import io.github.bertderbecker.scalapfui.javafx.scene.SceneExts._
 import io.github.bertderbecker.scalapfui.javafx.scene.control.Actions._
@@ -104,8 +105,8 @@ object Test extends JFXApp {
   }
 
   */
-  def buildLayout(x: Int): FXParent[JFXPane] =
-    Pane()(
+  def buildLayout(x: Int): FXParent[JFXVBox] =
+    VBox(
       MenuBar(
         Menu(
           MenuItem(
@@ -121,7 +122,7 @@ object Test extends JFXApp {
         onAction := (_ => buildLayout(x + 1)),
         onContextMenuRequested := (_ => buildLayout(x - 1))
       )
-    )
+    )()
 
   primaryStage =
     Stage(

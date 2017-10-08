@@ -14,21 +14,21 @@ import io.github.bertderbecker.scalapfui.property.Property
 
 import scala.language.implicitConversions
 
-object VisibleActions {
+object VisibilityActions {
 
 
-  case class OnHidden(
-                       property: Property[EventHandler[Event]],
+  case class OnHidden[T <: Event](
+                       property: Property[EventHandler[T]],
                        window: Window
                      )
 
-  val onHidden: Attribute[Event => FXElement[_ <: JFXParent], OnHidden] =
+  val onHidden: Attribute[Event => FXElement[_ <: JFXParent], OnHidden[Event]] =
     FXAttribute.forEventHandlerUnwrapped(_.property)
 
   implicit def onHidden2MenuMod(
                                  mod: Modifier[
                                    Event => FXElement[_ <: JFXParent],
-                                   OnHidden
+                                   OnHidden[Event]
                                    ])
   : Modifier[Event => FXElement[_ <: JFXParent], Menu] =
 
