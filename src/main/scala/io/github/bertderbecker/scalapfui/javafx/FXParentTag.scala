@@ -9,4 +9,5 @@ case class FXParentTag[Native <: JFXParent](pure: () => Native, childrenExtr: Na
 
   override def apply(children: Element[_ <: Node]*)(modifiers: Modifier[_, Native]*): FXParent[Native] =
     new FXParent[Native](pure, childrenExtr)(modifiers: _*)(children: _*)
+
 }
