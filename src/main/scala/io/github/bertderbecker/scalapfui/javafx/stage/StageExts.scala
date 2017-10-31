@@ -31,8 +31,26 @@ object StageExts {
         )
       )(p => FXElement.wrap(p))(_.render)
     }
+  
+  
+  object stage {
+
+    val height: ReadableAttribute[Double, Stage] =
+      FXReadableAttribute[java.lang.Double, Stage](_.heightProperty().asObject())
+
+    val width: ReadableAttribute[Double, Stage] =
+      FXReadableAttribute[java.lang.Double, Stage](_.widthProperty().asObject())
 
 
+    val maxHeight: ReadableAttribute[Double, Stage] =
+      FXReadableAttribute[java.lang.Double, Stage](_.maxHeightProperty().asObject())
+
+
+    val maxWidth: ReadableAttribute[Double, Stage] =
+      FXReadableAttribute[java.lang.Double, Stage](_.maxWidthProperty().asObject())
+
+  }
+  
   val alwaysOnTop: ReadableAttribute[Boolean, Stage] =
     FXReadableAttribute[java.lang.Boolean, Stage](_.alwaysOnTopProperty().asObject())
 

@@ -7,7 +7,7 @@ import scala.collection.mutable.ListBuffer
 
 trait JFXApp {
 
-  def primaryStage: FXElement[Stage] = JFXApp.wrappedStage()
+  def primaryStage: FXElement[Stage] = JFXApp.wrappedStage() //NOT USE!!!!
 
   def primaryStage_=(newStage: => FXElement[Stage]): Unit =
     JFXApp.wrappedStage = () => newStage
@@ -30,6 +30,8 @@ trait JFXApp {
   def stopApp(): Unit = {
     System.exit(0)
   }
+
+
 }
 
 object JFXApp {

@@ -19,9 +19,36 @@ object RegionExts {
     FXAttribute[JFXBackground, JFXRegion](_.backgroundProperty())
 
   object Background {
-    def fillWidth(paint: Paint) =
+    def fillWith(paint: Paint) =
       new JFXBackground(new BackgroundFill(paint, CornerRadii.EMPTY, JFXInsets.EMPTY))
   }
+
+  trait SharedAttributes {
+
+    val height: ReadableAttribute[Double, JFXRegion] =
+      FXReadableAttribute[java.lang.Double, JFXRegion](_.heightProperty().asObject())
+
+    val width: ReadableAttribute[Double, JFXRegion] =
+      FXReadableAttribute[java.lang.Double, JFXRegion](_.widthProperty().asObject())
+
+
+    val maxHeight: ReadableAttribute[Double, JFXRegion] =
+      FXReadableAttribute[java.lang.Double, JFXRegion](_.maxHeightProperty().asObject())
+
+
+    val maxWidth: ReadableAttribute[Double, JFXRegion] =
+      FXReadableAttribute[java.lang.Double, JFXRegion](_.maxWidthProperty().asObject())
+
+
+    val prefHeight: ReadableAttribute[Double, JFXRegion] =
+      FXReadableAttribute[java.lang.Double, JFXRegion](_.prefHeightProperty().asObject())
+
+    val prefWidth: ReadableAttribute[Double, JFXRegion] =
+      FXReadableAttribute[java.lang.Double, JFXRegion](_.prefWidthProperty().asObject())
+
+  }
+
+  object region extends SharedAttributes
 
   val border: Attribute[Border, JFXRegion] =
     FXAttribute[Border, JFXRegion](_.borderProperty())

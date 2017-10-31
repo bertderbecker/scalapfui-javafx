@@ -8,4 +8,10 @@ import io.github.bertderbecker.scalapfui.javafx.FXParentTag
 object PaneExts {
 
   val Pane: FXParentTag[Pane] = FXParentTag[Pane](() => new Pane(), _.getChildren)
+
+  trait SharedAttributes extends RegionExts.SharedAttributes {
+
+  }
+
+  object pane extends SharedAttributes
 }

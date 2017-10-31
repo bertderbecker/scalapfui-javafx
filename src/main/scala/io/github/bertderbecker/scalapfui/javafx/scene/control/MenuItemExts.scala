@@ -1,6 +1,6 @@
 package io.github.bertderbecker.scalapfui.javafx.scene.control
 
-import javafx.event.{Event, EventHandler}
+import javafx.event.{ActionEvent, Event, EventHandler}
 import javafx.scene.Node
 import javafx.scene.control.{ContextMenu, Menu, MenuItem => JFXMenuItem}
 import javafx.scene.input.KeyCombination
@@ -41,28 +41,8 @@ object MenuItemExts {
 
   //onAction is ready
 
-  case class OnMenuValidation(
-                               property: Property[EventHandler[Event]],
-                               window: Window
-                             )
-
-  val onMenuValidation: Attribute[Event => FXElement[_ <: JFXParent], OnMenuValidation] =
-    FXAttribute.forEventHandlerUnwrapped(_.property)
-
-  implicit def onMenuValidation2MenuMod(
-                                         mod: Modifier[
-                                           Event => FXElement[_ <: JFXParent],
-                                           OnMenuValidation
-                                           ])
-  : Modifier[Event => FXElement[_ <: JFXParent], Menu] =
-
-    mod.mapApply(
-      (native: Menu) =>
-        OnMenuValidation(
-          FXProperty(native.onMenuValidationProperty()),
-          native.getParentPopup.getScene.getWindow
-        )
-    )
+  val onMenuValidation: Attribute[Event => FXElement[_ <: JFXParent], JFXMenuItem] =
+    FXAttribute.forEventHandlerUnwrapped(x => FXProperty(x.onMenuValidationProperty()))
 
 
   val parentMenu: ReadableAttribute[Menu, JFXMenuItem] =
@@ -73,7 +53,19 @@ object MenuItemExts {
 
   //Style is ready
 
-  //Text is ready
+  trait SharedAttributes {
+
+    val text: Attribute[String, JFXMenuItem] = FXAttribute[String, JFXMenuItem](_.textProperty())
+
+
+    lazy val onAction: Attribute[(ActionEvent) => FXElement[_ <: JFXParent], JFXMenuItem] =
+      FXAttribute.forEventHandlerUnwrapped(x => FXProperty(x.onActionProperty()))
+
+
+    val style: Attribute[String, JFXMenuItem] = FXAttribute[String, JFXMenuItem](_.styleProperty())
+  }
+
+  object menuItem extends SharedAttributes
 
   val visible: Attribute[Boolean, JFXMenuItem] =
     FXAttribute[java.lang.Boolean, JFXMenuItem](_.visibleProperty())

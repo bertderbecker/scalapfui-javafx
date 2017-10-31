@@ -1,5 +1,6 @@
 package io.github.bertderbecker.scalapfui.javafx.scene.control
 
+import javafx.geometry.Pos
 import javafx.scene.Node
 import javafx.scene.control.{Labeled, OverrunStyle, ContentDisplay => JFXContentDisplay}
 import javafx.scene.paint.Paint
@@ -59,7 +60,30 @@ object LabeledExts {
   //TODO: support OverrunStyle
   val textOverrun: Attribute[OverrunStyle, Labeled] = FXAttribute[OverrunStyle, Labeled](_.textOverrunProperty())
 
-  //Text is ready
+  trait SharedAttributes {
+
+    val text: Attribute[String, Labeled] = FXAttribute[String, Labeled](_.textProperty())
+
+    val alignment: Attribute[Pos, Labeled] = FXAttribute.apply[Pos, Labeled](_.alignmentProperty())
+
+    object Alignment {
+      val BaselineCenter: Modifier[Pos, Labeled] = alignment := Pos.BASELINE_CENTER
+      val BaselineLeft: Modifier[Pos, Labeled] = alignment := Pos.BASELINE_LEFT
+      val BaselineRight: Modifier[Pos, Labeled] = alignment := Pos.BASELINE_RIGHT
+      val BottomCenter: Modifier[Pos, Labeled] = alignment := Pos.BOTTOM_CENTER
+      val BottomLeft: Modifier[Pos, Labeled] = alignment := Pos.BOTTOM_LEFT
+      val BottomRight: Modifier[Pos, Labeled] = alignment := Pos.BOTTOM_RIGHT
+      val Center: Modifier[Pos, Labeled] = alignment := Pos.CENTER
+      val CenterLeft: Modifier[Pos, Labeled] = alignment := Pos.CENTER_LEFT
+      val CenterRight: Modifier[Pos, Labeled] = alignment := Pos.CENTER_RIGHT
+      val TopCenter: Modifier[Pos, Labeled] = alignment := Pos.TOP_CENTER
+      val TopLeft: Modifier[Pos, Labeled] = alignment := Pos.TOP_LEFT
+      val TopRight: Modifier[Pos, Labeled] = alignment := Pos.TOP_RIGHT
+    }
+  }
+
+  object labeled extends SharedAttributes
+
 
   val underline: Attribute[Boolean, Labeled] = FXAttribute[java.lang.Boolean, Labeled](_.underlineProperty().asObject())
 

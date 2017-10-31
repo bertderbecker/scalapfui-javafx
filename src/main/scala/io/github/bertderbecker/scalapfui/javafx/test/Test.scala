@@ -4,8 +4,6 @@ import javafx.scene.layout.{Pane => JFXPane}
 import javafx.scene.layout.{VBox => JFXVBox}
 
 import io.github.bertderbecker.scalapfui.javafx.scene.SceneExts._
-import io.github.bertderbecker.scalapfui.javafx.scene.control.Actions._
-import io.github.bertderbecker.scalapfui.javafx.scene.control.Text._
 import io.github.bertderbecker.scalapfui.javafx.scene.layout.OrderedBoxes._
 import io.github.bertderbecker.scalapfui.javafx.scene.layout.PaneExts._
 import io.github.bertderbecker.scalapfui.javafx.stage.StageExts._
@@ -13,7 +11,6 @@ import io.github.bertderbecker.scalapfui.javafx.scene.control.MenuBarExts._
 import io.github.bertderbecker.scalapfui.javafx.scene.control.MenuItemExts._
 import io.github.bertderbecker.scalapfui.javafx.{FXParent, JFXApp}
 import io.github.bertderbecker.scalapfui.javafx.scene.control.TextFieldExts._
-import io.github.bertderbecker.scalapfui.javafx.scene.control.NodeActions._
 import io.github.bertderbecker.scalapfui.javafx.scene.control.MenuExts._
 
 import scala.language.postfixOps
@@ -105,22 +102,24 @@ object Test extends JFXApp {
   }
 
   */
+
+
   def buildLayout(x: Int): FXParent[JFXVBox] =
     VBox(
       MenuBar(
         Menu(
           MenuItem(
-            text := "" + x + " Actions",
-            onAction := (_ => buildLayout(x + 1))
+            menuItem.text := "" + x + " Actions",
+            menuItem.onAction := (_ => buildLayout(x + 1))
           )
         )(
-          text := "Menu"
+          menu.text := "Menu"
         )
       )(),
       TextField(
-        text := "" + x + " Actions",
-        onAction := (_ => buildLayout(x + 1)),
-        onContextMenuRequested := (_ => buildLayout(x - 1))
+        textField.text := "" + x + " Actions",
+        textField.onAction := (_ => buildLayout(x + 1))
+        //, textField.onContextMenuRequested := (_ => buildLayout(x - 1))
       )
     )()
 

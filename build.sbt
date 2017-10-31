@@ -2,7 +2,7 @@ name := "scalapfui-javafx"
 
 organization := "io.github.bertderbecker"
 
-version := "0.0.3"
+version := "0.0.4"
 
 scalaVersion := "2.12.3"
 
@@ -10,7 +10,7 @@ isSnapshot := true
 
 resolvers += Resolver.mavenLocal
 
-libraryDependencies += "io.github.bertderbecker" %% "scalapfui-core" % "0.0.5"
+libraryDependencies += "io.github.bertderbecker" %% "scalapfui-core" % "0.0.7"
 
 libraryDependencies ++= Seq(
   "org.typelevel" %% "cats-core" % "1.0.0-MF"

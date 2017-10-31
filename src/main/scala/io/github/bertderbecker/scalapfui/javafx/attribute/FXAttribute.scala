@@ -61,8 +61,9 @@ object FXAttribute extends AttributeCompanion[Attribute, JFXProperty] {
                                            op: Native => JFXProperty[_ >: EventHandler[_ >: T <: Event]]
                                          ): Attribute[T => FXElement[_ <: JFXParent], Native] =
     forEventHandlerUnwrapped[T, Native](native =>
-      propertyInvariant.imap(FXProperty(op(native))
-      )(_.asInstanceOf[EventHandler[T]]
-      )(_.asInstanceOf[EventHandler[_ >: T <: Event]]))
+      propertyInvariant.imap
+      (FXProperty(op(native)))
+      (_.asInstanceOf[EventHandler[T]])
+      (_.asInstanceOf[EventHandler[_ >: T <: Event]]))
 
 }

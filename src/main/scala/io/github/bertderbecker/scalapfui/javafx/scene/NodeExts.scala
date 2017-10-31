@@ -3,7 +3,8 @@ package io.github.bertderbecker.scalapfui.javafx.scene
 import javafx.geometry.{Bounds, NodeOrientation, Point3D}
 import javafx.scene.effect.{BlendMode, Effect}
 import javafx.scene._
-import javafx.scene.input.InputMethodRequests
+import javafx.scene.input.{ContextMenuEvent, InputMethodRequests}
+import javafx.scene.{Node, Parent => JFXParent}
 import javafx.scene.transform.Transform
 
 import io.github.bertderbecker.scalapfui.javafx.Implicits._
@@ -154,4 +155,16 @@ object NodeExts {
   val visible: Attribute[Boolean, Node] =
     FXAttribute[java.lang.Boolean, Node](_.visibleProperty().asObject())
 
+
+  //TODO: support actions
+
+  trait SharedAttributes {
+    lazy val onContextMenuRequested
+    : Attribute[ContextMenuEvent => FXElement[_ <: JFXParent], Node] =
+      FXAttribute.forEventHandler[ContextMenuEvent, Node](_.onContextMenuRequestedProperty())
+
+    val style: Attribute[String, Node] = FXAttribute[String, Node](_.styleProperty())
+  }
+
+  object node extends SharedAttributes
 }
