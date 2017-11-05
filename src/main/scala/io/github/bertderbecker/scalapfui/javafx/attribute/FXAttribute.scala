@@ -3,14 +3,14 @@ package io.github.bertderbecker.scalapfui.javafx.attribute
 import javafx.beans.property.{SimpleObjectProperty, Property => JFXProperty}
 import javafx.beans.value.{ChangeListener, ObservableValue}
 import javafx.event.{Event, EventHandler}
-import javafx.scene.{Scene, Parent => JFXParent}
-import javafx.stage.{Stage, Window}
+import javafx.scene.{Parent => JFXParent}
 
 import io.github.bertderbecker.scalapfui.attribute.Attribute
-import io.github.bertderbecker.scalapfui.javafx.{FXElement, JFXApp}
+import io.github.bertderbecker.scalapfui.javafx.FXElement
+import io.github.bertderbecker.scalapfui.javafx.Implicits._
+import io.github.bertderbecker.scalapfui.javafx.event.EventReactor
 import io.github.bertderbecker.scalapfui.javafx.property.FXProperty
 import io.github.bertderbecker.scalapfui.property.Property
-import io.github.bertderbecker.scalapfui.javafx.Implicits._
 
 object FXAttribute extends AttributeCompanion[Attribute, JFXProperty] {
 
@@ -40,30 +40,26 @@ object FXAttribute extends AttributeCompanion[Attribute, JFXProperty] {
       override def propertyExtr: Native => Property[T] = propertyExtractor
     }
 
-  def forEventHandlerUnwrapped[T <: Event, Native](
-                                                    op: Native => Property[EventHandler[T]]
-                                         ): Attribute[T => FXElement[_ <: JFXParent], Native] = {
-    apply[T => FXElement[_ <: JFXParent], Native] { native =>
-      val p = new SimpleObjectProperty[T => FXElement[_ <: JFXParent]]()
+  def forEventReactor[E <: Event, Native](property: Native => JFXProperty[EventHandler[E]]): Attribute[EventReactor[E], Native] =
+
+    FXAttribute.apply[EventReactor[E], Native] { native =>
+      val p = new SimpleObjectProperty[EventReactor[E]]()
       p.onChange { newValue =>
-        op(native).update { event =>
-          println("Action!!")
-          val stage = JFXApp.Stage
-          println("Stage = " + stage)
-          stage.setScene(new Scene(newValue(event).render))
-        }
+        property(native).setValue(newValue.op(_))
       }
       p
     }
-  }
 
-  def forEventHandler[T <: Event, Native](
-                                           op: Native => JFXProperty[_ >: EventHandler[_ >: T <: Event]]
-                                         ): Attribute[T => FXElement[_ <: JFXParent], Native] =
-    forEventHandlerUnwrapped[T, Native](native =>
-      propertyInvariant.imap
-      (FXProperty(op(native)))
-      (_.asInstanceOf[EventHandler[T]])
-      (_.asInstanceOf[EventHandler[_ >: T <: Event]]))
+  def forEventReactorConformist[E <: Event, Native](property: Native => JFXProperty[_ >: EventHandler[E]]): Attribute[EventReactor[E], Native] =
+
+    FXAttribute.apply[EventReactor[E], Native] { native =>
+      val p = new SimpleObjectProperty[EventReactor[E]]()
+      p.onChange { newValue =>
+        property(native).setValue(new EventHandler[E] {
+          override def handle(event: E): Unit = newValue.op(event)
+        })
+      }
+      p
+    }
 
 }

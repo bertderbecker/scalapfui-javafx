@@ -19,6 +19,7 @@ object RegionExts {
     FXAttribute[JFXBackground, JFXRegion](_.backgroundProperty())
 
   object Background {
+
     def fillWith(paint: Paint) =
       new JFXBackground(new BackgroundFill(paint, CornerRadii.EMPTY, JFXInsets.EMPTY))
   }
@@ -40,11 +41,12 @@ object RegionExts {
       FXReadableAttribute[java.lang.Double, JFXRegion](_.maxWidthProperty().asObject())
 
 
-    val prefHeight: ReadableAttribute[Double, JFXRegion] =
-      FXReadableAttribute[java.lang.Double, JFXRegion](_.prefHeightProperty().asObject())
 
-    val prefWidth: ReadableAttribute[Double, JFXRegion] =
-      FXReadableAttribute[java.lang.Double, JFXRegion](_.prefWidthProperty().asObject())
+    val prefHeight: Attribute[Double, JFXRegion] =
+      FXAttribute[java.lang.Double, JFXRegion](_.prefHeightProperty().asObject())
+
+    val prefWidth: Attribute[Double, JFXRegion] =
+      FXAttribute[java.lang.Double, JFXRegion](_.prefWidthProperty().asObject())
 
   }
 

@@ -26,7 +26,6 @@ object LabelExts {
 
   val Label: FXElementTag[Label] = FXElementTag[Label](() => new Label())
 
-
   case class LabeledPair[N <: Node](label: FXElement[Label], other: FXElement[N]) extends Parent {
 
     def addToParent(childList: ObservableList[Node]): Unit = {
@@ -36,5 +35,9 @@ object LabelExts {
       childList.addAll(lab, oth)
     }
   }
+
+  trait SharedAttributes extends LabeledExts.SharedAttributes
+
+  object label extends SharedAttributes
 
 }

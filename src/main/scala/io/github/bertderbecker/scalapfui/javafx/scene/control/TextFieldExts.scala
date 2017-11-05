@@ -9,6 +9,7 @@ import io.github.bertderbecker.scalapfui.Modifier
 import io.github.bertderbecker.scalapfui.attribute.Attribute
 import io.github.bertderbecker.scalapfui.javafx.Implicits._
 import io.github.bertderbecker.scalapfui.javafx.attribute.FXAttribute
+import io.github.bertderbecker.scalapfui.javafx.event.EventReactor
 import io.github.bertderbecker.scalapfui.javafx.property.FXProperty
 import io.github.bertderbecker.scalapfui.javafx.{FXElement, FXElementTag}
 
@@ -26,8 +27,8 @@ object TextFieldExts {
   object textField extends SharedAttributes {
 
     //not sure if it works
-    lazy val onAction: Attribute[(ActionEvent) => FXElement[_ <: JFXParent], TextField] =
-      FXAttribute.forEventHandlerUnwrapped(x => FXProperty(x.onActionProperty()))
+    lazy val onAction: Attribute[EventReactor[ActionEvent], TextField] =
+      FXAttribute.forEventReactor(_.onActionProperty())
 
 
     val alignment: Attribute[Pos, TextField] = FXAttribute.apply[Pos, TextField](_.alignmentProperty())

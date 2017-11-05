@@ -10,7 +10,7 @@ import io.github.bertderbecker.scalapfui.property._
 import scala.language.higherKinds
 
 case class FXProperty[T](jFXProperty: JFXProperty[T])
-  extends NestedProperty[T] {
+  extends NestedSplitProperty[T] {
 
 
   override def doBidirectionalBinding(other: Property[T]): Unit = {
@@ -20,11 +20,7 @@ case class FXProperty[T](jFXProperty: JFXProperty[T])
     other match {
       case otherNested: FXProperty[T] =>
         jFXProperty.bindBidirectional(otherNested.jFXProperty)
-      case _ =>
-        val listener: (ReadableProperty[T], T, T) => Unit =
-          BidirectionalBinding(this, other).listener
-        this.onChangeFull(listener)
-        other.onChangeFull(listener)
+      case _ => super.bindBidirectional(other)
     }
 
   }
@@ -61,81 +57,6 @@ object FXProperty {
           fa.processOnChange((ao, aov, anv) => op(self, f(aov), f(anv)))
       }
     }
-
-    /*
-
-    //DOES NOT BACKPRESSURING!!! IF THE NEWER PROP IS UPDATED, LISTENERS FROM THE OLDER PROP ARE NOT CALLED!!!
-    implicit val propertyFunctor: Functor[Property] =
-      new Functor[Property] {
-        override def map[A, B](fa: Property[A])(f: A => B): Property[B] =
-          FXProperty[B]({
-            val prop = fa.value match {
-              case Some(v) => new SimpleObjectProperty[B](f(v))
-              case _ => new SimpleObjectProperty[B]()
-            }
-            fa.onChange(newVal => prop.set(f(newVal)))
-            prop
-          })
-
-      }
-
-    //DOES NOT BACKPRESSURING!!! IF THE NEWER PROP IED, LISTENERS FROM THE OLDER PROP ARE NOT CALLED!!!
-    implicit val propertyFlatMap: FlatMap[Property] = new FlatMap[Property] {
-
-      override def flatMap[A, B](fa: Property[A])(f: (A) => Property[B]): Property[B] = {
-        def bprop: Property[Property[B]] = propertyFunctor.map(fa)(f)
-
-        new FXProperty[B](
-          bprop.value.flatMap(_.value) match {
-            case Some(v) => new SimpleObjectProperty[B](v)
-            case _ => new SimpleObjectProperty[B]()
-          }
-        ) {
-
-          bprop.onChange { newProp =>
-            newProp.onChange(jFXProperty.setValue)
-            newProp.value match {
-              case Some(v) => jFXProperty.setValue(v)
-              case _ =>
-            }
-          }
-
-          bprop.onChange(_.onChange(this.update))
-
-          override def removeOnChange(op: (ReadableProperty[B], B, B) => Unit): Unit =
-            try {
-              super.removeOnChange((o, ov, nv) => {
-                bprop.removeOnChange((ao, aov, anv) => try {
-                  anv.removeOnChange(op)
-                } catch {
-                  case e: Exception =>
-                })
-              })
-            } catch {
-              case e: Exception =>
-            }
-
-          override def processOnChange(op: (ReadableProperty[B], B, B) => Unit): Unit = {
-            super.processOnChange((o, ov, nv) => {
-              bprop.onChangeFull((ao, aov, anv) => anv.onChangeFull(op))
-              op(o, ov, nv)
-            })
-          }
-        }
-      }
-
-      override def tailRecM[A, B](a: A)(f: (A) => Property[Either[A, B]]): Property[B] = {
-        throw new IllegalArgumentException("Operation not supported")
-        flatMap(f(a)) {
-          case Right(b) => FXProperty(b)
-          case Left(nextA: A) => tailRecM(nextA)(f)
-        }
-      }
-
-      override def map[A, B](fa: Property[A])(f: (A) => B): Property[B] = propertyFunctor.map(fa)(f)
-    }
-
-    */
   }
 
 }

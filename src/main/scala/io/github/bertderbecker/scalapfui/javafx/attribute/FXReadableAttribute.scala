@@ -13,10 +13,11 @@ import scala.language.implicitConversions
 object FXReadableAttribute
   extends AttributeCompanion[ReadableAttribute, ObservableValue] {
 
-  override def apply[T, Native](propertyExtractor: (Native) => ObservableValue[T]) = new ReadableAttribute[T, Native] {
-    override val readablePropertyExtr: Native => ReadableProperty[T] =
-      native => FXReadableProperty(propertyExtractor(native))
-  }
+  override def apply[T, Native](propertyExtractor: (Native) => ObservableValue[T]): ReadableAttribute[T, Native] =
+    new ReadableAttribute[T, Native] {
+      override val readablePropertyExtr: Native => ReadableProperty[T] =
+        native => FXReadableProperty(propertyExtractor(native))
+    }
 
   trait ReadableAttributeInstances {
 

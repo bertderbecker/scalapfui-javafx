@@ -4,22 +4,23 @@ import javafx.beans.property.adapter.JavaBeanObjectPropertyBuilder
 import javafx.beans.property.{Property => JFXProperty}
 import javafx.scene.Scene
 import javafx.scene.input.KeyCombination
-import javafx.stage.Stage
+import javafx.stage.{Stage => JFXStage}
 
+import io.github.bertderbecker.scalapfui.Modifier
 import io.github.bertderbecker.scalapfui.attribute.{Attribute, ReadableAttribute}
-import io.github.bertderbecker.scalapfui.javafx.Implicits._
-import io.github.bertderbecker.scalapfui.javafx.attribute.{FXAttribute, FXReadableAttribute}
-import io.github.bertderbecker.scalapfui.javafx.property.FXProperty
 import io.github.bertderbecker.scalapfui.javafx.{FXElement, FXElementTag}
+import io.github.bertderbecker.scalapfui.javafx.Implicits._
+import io.github.bertderbecker.scalapfui.javafx.attribute.{FXAttribute, FXReadableAttribute, FXSimpleWritableAttribute}
+import io.github.bertderbecker.scalapfui.javafx.property.FXProperty
 
 //Ready
 object StageExts {
 
-  val Stage = FXElementTag(() => new Stage())
+  val Stage = FXElementTag(() => new JFXStage())
 
 
-  val scene: Attribute[FXElement[Scene], Stage] =
-    FXAttribute.fromProperty[FXElement[Scene], Stage] { native =>
+  val scene: Attribute[FXElement[Scene], JFXStage] =
+    FXAttribute.fromProperty[FXElement[Scene], JFXStage] { native =>
       propertyInvariant.imap(
         FXProperty(
           JavaBeanObjectPropertyBuilder
@@ -31,62 +32,69 @@ object StageExts {
         )
       )(p => FXElement.wrap(p))(_.render)
     }
-  
-  
-  object stage {
 
-    val height: ReadableAttribute[Double, Stage] =
-      FXReadableAttribute[java.lang.Double, Stage](_.heightProperty().asObject())
+  trait SharedAttributes extends WindowExts.SharedAttributes {
 
-    val width: ReadableAttribute[Double, Stage] =
-      FXReadableAttribute[java.lang.Double, Stage](_.widthProperty().asObject())
+    val initHeight: FXSimpleWritableAttribute[Double, JFXStage] =
+      FXSimpleWritableAttribute[Double, JFXStage](x => stage => stage.setHeight(x))
+
+    val initWidth: FXSimpleWritableAttribute[Double, JFXStage] =
+      FXSimpleWritableAttribute[Double, JFXStage](x => stage => stage.setWidth(x))
+
+    val height: ReadableAttribute[Double, JFXStage] =
+      FXReadableAttribute[java.lang.Double, JFXStage](_.heightProperty().asObject())
+
+    val width: ReadableAttribute[Double, JFXStage] =
+      FXReadableAttribute[java.lang.Double, JFXStage](_.widthProperty().asObject())
 
 
-    val maxHeight: ReadableAttribute[Double, Stage] =
-      FXReadableAttribute[java.lang.Double, Stage](_.maxHeightProperty().asObject())
+    val maxHeight: ReadableAttribute[Double, JFXStage] =
+      FXReadableAttribute[java.lang.Double, JFXStage](_.maxHeightProperty().asObject())
 
 
-    val maxWidth: ReadableAttribute[Double, Stage] =
-      FXReadableAttribute[java.lang.Double, Stage](_.maxWidthProperty().asObject())
+    val maxWidth: ReadableAttribute[Double, JFXStage] =
+      FXReadableAttribute[java.lang.Double, JFXStage](_.maxWidthProperty().asObject())
 
   }
   
-  val alwaysOnTop: ReadableAttribute[Boolean, Stage] =
-    FXReadableAttribute[java.lang.Boolean, Stage](_.alwaysOnTopProperty().asObject())
+  object stage extends SharedAttributes
+  
+  val alwaysOnTop: ReadableAttribute[Boolean, JFXStage] =
+    FXReadableAttribute[java.lang.Boolean, JFXStage](_.alwaysOnTopProperty().asObject())
 
-  val fullScreenExitHint: Attribute[String, Stage] =
-    FXAttribute[String, Stage](_.fullScreenExitHintProperty())
+  val fullScreenExitHint: Attribute[String, JFXStage] =
+    FXAttribute[String, JFXStage](_.fullScreenExitHintProperty())
 
   //TODO: Better Support for KeyCombination
-  val fullScreenExitKey: Attribute[KeyCombination, Stage] =
-    FXAttribute[KeyCombination, Stage](_.fullScreenExitKeyProperty())
+  val fullScreenExitKey: Attribute[KeyCombination, JFXStage] =
+    FXAttribute[KeyCombination, JFXStage](_.fullScreenExitKeyProperty())
 
-  val fullScreen: ReadableAttribute[Boolean, Stage] =
-    FXReadableAttribute[java.lang.Boolean, Stage](_.fullScreenProperty().asObject())
+  val fullScreen: ReadableAttribute[Boolean, JFXStage] =
+    FXReadableAttribute[java.lang.Boolean, JFXStage](_.fullScreenProperty().asObject())
 
-  val iconified: ReadableAttribute[Boolean, Stage] =
-    FXReadableAttribute[java.lang.Boolean, Stage](_.iconifiedProperty().asObject())
+  val iconified: ReadableAttribute[Boolean, JFXStage] =
+    FXReadableAttribute[java.lang.Boolean, JFXStage](_.iconifiedProperty().asObject())
 
-  val maxHeight: Attribute[Double, Stage] =
-    FXAttribute[java.lang.Double, Stage](_.maxHeightProperty().asObject())
+  val maxHeight: Attribute[Double, JFXStage] =
+    FXAttribute[java.lang.Double, JFXStage](_.maxHeightProperty().asObject())
 
-  val maximized: ReadableAttribute[Boolean, Stage] =
-    FXReadableAttribute[java.lang.Boolean, Stage](_.maximizedProperty().asObject())
+  val maximized: ReadableAttribute[Boolean, JFXStage] =
+    FXReadableAttribute[java.lang.Boolean, JFXStage](_.maximizedProperty().asObject())
 
-  val maxWidth: Attribute[Double, Stage] =
-    FXAttribute[java.lang.Double, Stage](_.maxWidthProperty().asObject())
+  val maxWidth: Attribute[Double, JFXStage] =
+    FXAttribute[java.lang.Double, JFXStage](_.maxWidthProperty().asObject())
 
-  val minHeight: Attribute[Double, Stage] =
-    FXAttribute[java.lang.Double, Stage](_.minHeightProperty().asObject())
+  val minHeight: Attribute[Double, JFXStage] =
+    FXAttribute[java.lang.Double, JFXStage](_.minHeightProperty().asObject())
 
-  val minWidth: Attribute[Double, Stage] =
-    FXAttribute[java.lang.Double, Stage](_.minWidthProperty().asObject())
+  val minWidth: Attribute[Double, JFXStage] =
+    FXAttribute[java.lang.Double, JFXStage](_.minWidthProperty().asObject())
 
-  val resizable: Attribute[Boolean, Stage] =
-    FXAttribute[java.lang.Boolean, Stage](_.resizableProperty().asObject())
+  val resizable: Attribute[Boolean, JFXStage] =
+    FXAttribute[java.lang.Boolean, JFXStage](_.resizableProperty().asObject())
 
-  val title: Attribute[String, Stage] =
-    FXAttribute[String, Stage](_.titleProperty())
+  val title: Attribute[String, JFXStage] =
+    FXAttribute[String, JFXStage](_.titleProperty())
 
 
 }

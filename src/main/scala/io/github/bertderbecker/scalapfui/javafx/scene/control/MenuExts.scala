@@ -8,8 +8,11 @@ import io.github.bertderbecker.scalapfui.javafx.Implicits._
 import io.github.bertderbecker.scalapfui.javafx.attribute.{FXAttribute, FXReadableAttribute}
 import javafx.scene.{Parent => JFXParent}
 
+import io.github.bertderbecker.scalapfui.javafx.event.EventReactor
 import io.github.bertderbecker.scalapfui.javafx.property.FXProperty
 import io.github.bertderbecker.scalapfui.javafx.{FXElement, FXElementTag}
+
+import scala.language.{higherKinds, implicitConversions}
 
 object MenuExts {
 
@@ -23,23 +26,22 @@ object MenuExts {
         }
       )
 
-
   val showing: ReadableAttribute[Boolean, JFXMenu] =
     FXReadableAttribute[java.lang.Boolean, JFXMenu](_.showingProperty())
 
   trait SharedAttributes extends MenuItemExts.SharedAttributes {
 
-    val onHidden: Attribute[Event => FXElement[_ <: JFXParent], JFXMenu] =
-      FXAttribute.forEventHandlerUnwrapped(x => FXProperty(x.onHiddenProperty()))
+    val onHidden: Attribute[EventReactor[Event], JFXMenu] =
+      FXAttribute.forEventReactor(_.onHiddenProperty())
 
-    val onHiding: Attribute[Event => FXElement[_ <: JFXParent], JFXMenu] =
-      FXAttribute.forEventHandlerUnwrapped(x => FXProperty(x.onHidingProperty()))
+    val onHiding: Attribute[EventReactor[Event], JFXMenu] =
+      FXAttribute.forEventReactor(_.onHidingProperty())
 
-    val onShowing: Attribute[Event => FXElement[_ <: JFXParent], JFXMenu] =
-      FXAttribute.forEventHandlerUnwrapped(x => FXProperty(x.onShowingProperty()))
+    val onShowing: Attribute[EventReactor[Event], JFXMenu] =
+      FXAttribute.forEventReactor(_.onShowingProperty())
 
-    val onShown: Attribute[Event => FXElement[_ <: JFXParent], JFXMenu] =
-      FXAttribute.forEventHandlerUnwrapped(x => FXProperty(x.onShownProperty()))
+    val onShown: Attribute[EventReactor[Event], JFXMenu] =
+      FXAttribute.forEventReactor(_.onShownProperty())
 
   }
 

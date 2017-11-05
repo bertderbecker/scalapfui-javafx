@@ -4,7 +4,9 @@ import io.github.bertderbecker.scalapfui.{ElementTag, Modifier}
 
 case class FXElementTag[Native](pure: () => Native) extends ElementTag[Native] {
 
-  override def apply(modifiers: Modifier[_, Native]*): FXElement[Native] =
+  type ElementImpl[N] = FXElement[N]
+
+  override def apply(modifiers: Modifier[_, Native]*): ElementImpl[Native] =
     new FXElement[Native](pure, modifiers: _*)
 
 }

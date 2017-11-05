@@ -4,6 +4,7 @@ import javafx.scene.control.{ContextMenu, Skin, Skinnable, Tooltip, Control => J
 
 import io.github.bertderbecker.scalapfui.attribute.Attribute
 import io.github.bertderbecker.scalapfui.javafx.attribute.FXAttribute
+import io.github.bertderbecker.scalapfui.javafx.scene.layout.RegionExts
 
 object ControlExts {
 
@@ -16,4 +17,8 @@ object ControlExts {
   val tooltip: Attribute[Tooltip, JFXControl] =
     FXAttribute[Tooltip, JFXControl](_.tooltipProperty())
 
+
+  trait SharedAttributes extends RegionExts.SharedAttributes
+
+  object control extends SharedAttributes
 }

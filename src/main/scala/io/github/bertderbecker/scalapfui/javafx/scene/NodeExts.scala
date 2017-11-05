@@ -11,6 +11,7 @@ import io.github.bertderbecker.scalapfui.javafx.Implicits._
 import io.github.bertderbecker.scalapfui.attribute.{Attribute, ReadableAttribute}
 import io.github.bertderbecker.scalapfui.javafx.FXElement
 import io.github.bertderbecker.scalapfui.javafx.attribute.{FXAttribute, FXReadableAttribute}
+import io.github.bertderbecker.scalapfui.javafx.event.EventReactor
 import io.github.bertderbecker.scalapfui.javafx.property.FXProperty
 import io.github.bertderbecker.scalapfui.javafx.scene.control.TextFieldExts
 
@@ -159,9 +160,9 @@ object NodeExts {
   //TODO: support actions
 
   trait SharedAttributes {
-    lazy val onContextMenuRequested
-    : Attribute[ContextMenuEvent => FXElement[_ <: JFXParent], Node] =
-      FXAttribute.forEventHandler[ContextMenuEvent, Node](_.onContextMenuRequestedProperty())
+
+    lazy val onContextMenuRequested: Attribute[EventReactor[ContextMenuEvent], Node] =
+      FXAttribute.forEventReactorConformist(_.onContextMenuRequestedProperty())
 
     val style: Attribute[String, Node] = FXAttribute[String, Node](_.styleProperty())
   }

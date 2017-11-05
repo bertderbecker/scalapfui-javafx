@@ -12,6 +12,7 @@ import io.github.bertderbecker.scalapfui.attribute.{Attribute, ReadableAttribute
 import io.github.bertderbecker.scalapfui.javafx.{FXElement, FXElementTag}
 import io.github.bertderbecker.scalapfui.javafx.Implicits._
 import io.github.bertderbecker.scalapfui.javafx.attribute.{FXAttribute, FXReadableAttribute}
+import io.github.bertderbecker.scalapfui.javafx.event.EventReactor
 import io.github.bertderbecker.scalapfui.javafx.property.FXProperty
 import io.github.bertderbecker.scalapfui.property.Property
 
@@ -41,8 +42,8 @@ object MenuItemExts {
 
   //onAction is ready
 
-  val onMenuValidation: Attribute[Event => FXElement[_ <: JFXParent], JFXMenuItem] =
-    FXAttribute.forEventHandlerUnwrapped(x => FXProperty(x.onMenuValidationProperty()))
+  val onMenuValidation: Attribute[EventReactor[Event], JFXMenuItem] =
+    FXAttribute.forEventReactor(_.onMenuValidationProperty())
 
 
   val parentMenu: ReadableAttribute[Menu, JFXMenuItem] =
@@ -57,9 +58,8 @@ object MenuItemExts {
 
     val text: Attribute[String, JFXMenuItem] = FXAttribute[String, JFXMenuItem](_.textProperty())
 
-
-    lazy val onAction: Attribute[(ActionEvent) => FXElement[_ <: JFXParent], JFXMenuItem] =
-      FXAttribute.forEventHandlerUnwrapped(x => FXProperty(x.onActionProperty()))
+    lazy val onAction: Attribute[EventReactor[ActionEvent], JFXMenuItem] =
+      FXAttribute.forEventReactor(_.onActionProperty())
 
 
     val style: Attribute[String, JFXMenuItem] = FXAttribute[String, JFXMenuItem](_.styleProperty())
