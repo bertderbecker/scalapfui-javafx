@@ -2,7 +2,7 @@ name := "scalapfui-javafx"
 
 organization := "io.github.bertderbecker"
 
-version := "0.0.7"
+version := "0.0.8"
 
 scalaVersion := "2.12.3"
 
