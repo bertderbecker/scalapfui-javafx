@@ -109,7 +109,7 @@ object Test extends JFXApp {
 
 
 
-  val textFieldText: FXStoredAttribute[String] = FXStoredAttribute("0 Actions")
+  val textFieldText: FXStoredAttribute[String] = FXStoredAttribute("enter")
 
   def buildLayout(x: Int): FXParent[JFXVBox] = {
     //test()
@@ -135,8 +135,8 @@ object Test extends JFXApp {
 
   primaryStage =
     Stage(
-      title := "IT WORKS!!!!!!!!!!!",
-      scene := Scene(
+      stage.title := "IT WORKS!!!!!!!!!!!",
+      stage.scene := Scene(
         buildLayout(0)
       )()
     )

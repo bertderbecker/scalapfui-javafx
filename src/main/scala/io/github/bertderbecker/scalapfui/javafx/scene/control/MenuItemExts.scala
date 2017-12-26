@@ -24,48 +24,42 @@ object MenuItemExts {
 
   val MenuItem: FXElementTag[JFXMenuItem] = FXElementTag(() => new JFXMenuItem())
 
-  val accelerator: Attribute[KeyCombination, JFXMenuItem] =
-    FXAttribute[KeyCombination, JFXMenuItem](_.acceleratorProperty())
+  trait Attributes {
 
-  val disable: Attribute[Boolean, JFXMenuItem] =
-    FXAttribute[java.lang.Boolean, JFXMenuItem](_.disableProperty())
+    val accelerator: Attribute[KeyCombination, JFXMenuItem] =
+      FXAttribute[KeyCombination, JFXMenuItem](_.acceleratorProperty())
 
-  val graphic: Attribute[Node, JFXMenuItem] =
-    FXAttribute[Node, JFXMenuItem](_.graphicProperty())
+    val disable: Attribute[Boolean, JFXMenuItem] =
+      FXAttribute[java.lang.Boolean, JFXMenuItem](_.disableProperty())
 
-  val id: Attribute[String, JFXMenuItem] =
-    FXAttribute[String, JFXMenuItem](_.idProperty())
+    val graphic: Attribute[Node, JFXMenuItem] =
+      FXAttribute[Node, JFXMenuItem](_.graphicProperty())
 
-  val mnemonicParsing: Attribute[Boolean, JFXMenuItem] =
-    FXAttribute[java.lang.Boolean, JFXMenuItem](_.mnemonicParsingProperty())
+    val id: Attribute[String, JFXMenuItem] =
+      FXAttribute[String, JFXMenuItem](_.idProperty())
 
-
-  //onAction is ready
-
-  val onMenuValidation: Attribute[EventReactor[Event], JFXMenuItem] =
-    FXAttribute.forEventReactor(_.onMenuValidationProperty())
-
-
-  val parentMenu: ReadableAttribute[Menu, JFXMenuItem] =
-    FXReadableAttribute[Menu, JFXMenuItem](_.parentMenuProperty())
-
-  val parentPopup: ReadableAttribute[ContextMenu, JFXMenuItem] =
-    FXReadableAttribute[ContextMenu, JFXMenuItem](_.parentPopupProperty())
-
-  //Style is ready
-
-  trait SharedAttributes {
-
-    val text: Attribute[String, JFXMenuItem] = FXAttribute[String, JFXMenuItem](_.textProperty())
+    val mnemonicParsing: Attribute[Boolean, JFXMenuItem] =
+      FXAttribute[java.lang.Boolean, JFXMenuItem](_.mnemonicParsingProperty())
 
     lazy val onAction: Attribute[EventReactor[ActionEvent], JFXMenuItem] =
       FXAttribute.forEventReactor(_.onActionProperty())
 
+    val onMenuValidation: Attribute[EventReactor[Event], JFXMenuItem] =
+      FXAttribute.forEventReactor(_.onMenuValidationProperty())
+
+    val parentMenu: ReadableAttribute[Menu, JFXMenuItem] =
+      FXReadableAttribute[Menu, JFXMenuItem](_.parentMenuProperty())
+
+    val parentPopup: ReadableAttribute[ContextMenu, JFXMenuItem] =
+      FXReadableAttribute[ContextMenu, JFXMenuItem](_.parentPopupProperty())
 
     val style: Attribute[String, JFXMenuItem] = FXAttribute[String, JFXMenuItem](_.styleProperty())
+
+    val text: Attribute[String, JFXMenuItem] = FXAttribute[String, JFXMenuItem](_.textProperty())
+
   }
 
-  object menuItem extends SharedAttributes
+  object menuItem extends Attributes
 
   val visible: Attribute[Boolean, JFXMenuItem] =
     FXAttribute[java.lang.Boolean, JFXMenuItem](_.visibleProperty())

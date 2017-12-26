@@ -8,17 +8,17 @@ import io.github.bertderbecker.scalapfui.javafx.scene.layout.RegionExts
 
 object ControlExts {
 
-  val contextMenu: Attribute[ContextMenu, JFXControl] =
-    FXAttribute[ContextMenu, JFXControl](_.contextMenuProperty())
+  trait Attributes extends RegionExts.Attributes {
 
-  val skin: Attribute[Skin[_ <: Skinnable], JFXControl] =
-    FXAttribute[Skin[_ <: Skinnable], JFXControl](_.skinProperty())
+    val contextMenu: Attribute[ContextMenu, JFXControl] =
+      FXAttribute[ContextMenu, JFXControl](_.contextMenuProperty())
 
-  val tooltip: Attribute[Tooltip, JFXControl] =
-    FXAttribute[Tooltip, JFXControl](_.tooltipProperty())
+    val skin: Attribute[Skin[_ <: Skinnable], JFXControl] =
+      FXAttribute[Skin[_ <: Skinnable], JFXControl](_.skinProperty())
 
+    val tooltip: Attribute[Tooltip, JFXControl] =
+      FXAttribute[Tooltip, JFXControl](_.tooltipProperty())
+  }
 
-  trait SharedAttributes extends RegionExts.SharedAttributes
-
-  object control extends SharedAttributes
+  object control extends Attributes
 }

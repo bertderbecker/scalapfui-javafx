@@ -15,26 +15,13 @@ import io.github.bertderbecker.scalapfui.javafx.property.FXProperty
 //Ready
 object WindowExts {
 
-  val focused: ReadableAttribute[Boolean, Window] =
-    FXReadableAttribute[java.lang.Boolean, Window](_.focusedProperty().asObject())
+  trait Attributes {
 
-  val opacity: Attribute[Double, Window] =
-    FXAttribute[java.lang.Double, Window](_.opacityProperty().asObject())
+    val focused: ReadableAttribute[Boolean, Window] =
+      FXReadableAttribute[java.lang.Boolean, Window](_.focusedProperty().asObject())
 
-  val scene: ReadableAttribute[Scene, Window] =
-    FXReadableAttribute[Scene, Window](_.sceneProperty())
-
-  val showing: ReadableAttribute[Boolean, Window] =
-    FXReadableAttribute[java.lang.Boolean, Window](_.showingProperty().asObject())
-
-  val x: ReadableAttribute[Double, Window] =
-    FXReadableAttribute[java.lang.Double, Window](_.xProperty().asObject())
-
-  val y: ReadableAttribute[Double, Window] =
-    FXReadableAttribute[java.lang.Double, Window](_.yProperty().asObject())
-
-
-  trait SharedAttributes {
+    val nativeScene: ReadableAttribute[Scene, Window] =
+      FXReadableAttribute[Scene, Window](_.sceneProperty())
 
     val onCloseRequest: Attribute[EventReactor[WindowEvent], Window] =
       FXAttribute.forEventReactor(_.onCloseRequestProperty())
@@ -50,8 +37,21 @@ object WindowExts {
 
     val onShown: Attribute[EventReactor[WindowEvent], Window] =
       FXAttribute.forEventReactor(_.onShownProperty())
+
+    val opacity: Attribute[Double, Window] =
+      FXAttribute[java.lang.Double, Window](_.opacityProperty().asObject())
+
+
+    val showing: ReadableAttribute[Boolean, Window] =
+      FXReadableAttribute[java.lang.Boolean, Window](_.showingProperty().asObject())
+
+    val x: ReadableAttribute[Double, Window] =
+      FXReadableAttribute[java.lang.Double, Window](_.xProperty().asObject())
+
+    val y: ReadableAttribute[Double, Window] =
+      FXReadableAttribute[java.lang.Double, Window](_.yProperty().asObject())
   }
 
-  object window extends SharedAttributes
+  object window extends Attributes
 
 }

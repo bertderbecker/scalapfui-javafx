@@ -19,14 +19,7 @@ object OrderedBoxes {
   val VBox: FXParentTag[JFXVBox] = FXParentTag(() => new JFXVBox(), _.getChildren)
   val HBox: FXParentTag[JFXHBox] = FXParentTag(() => new JFXHBox(), _.getChildren)
 
-
-  val fillWidth: Attribute[Boolean, JFXVBox] =
-    FXAttribute[java.lang.Boolean, JFXVBox](_.fillWidthProperty().asObject())
-
-  val fillHeight: Attribute[Boolean, JFXHBox] =
-    FXAttribute[java.lang.Boolean, JFXHBox](_.fillHeightProperty().asObject())
-
-  trait VBoxSharedAttributes extends PaneExts.SharedAttributes {
+  trait VBoxAttributes extends PaneExts.Attributes {
 
     val alignment: Attribute[Pos, JFXVBox] = FXAttribute.apply[Pos, JFXVBox](_.alignmentProperty())
 
@@ -45,12 +38,16 @@ object OrderedBoxes {
       val TopRight: Modifier[Pos, JFXVBox] = alignment := Pos.TOP_RIGHT
     }
 
+    val fillWidth: Attribute[Boolean, JFXVBox] =
+      FXAttribute[java.lang.Boolean, JFXVBox](_.fillWidthProperty().asObject())
+
+
     val spacing: Attribute[Double, JFXVBox] =
       FXAttribute[java.lang.Double, JFXVBox](_.spacingProperty().asObject())
 
   }
 
-  trait HBoxSharedAttributes extends PaneExts.SharedAttributes {
+  trait HBoxAttributes extends PaneExts.Attributes {
 
     val alignment: Attribute[Pos, JFXHBox] = FXAttribute.apply[Pos, JFXHBox](_.alignmentProperty())
 
@@ -69,14 +66,17 @@ object OrderedBoxes {
       val TopRight: Modifier[Pos, JFXHBox] = alignment := Pos.TOP_RIGHT
     }
 
+    val fillHeight: Attribute[Boolean, JFXHBox] =
+      FXAttribute[java.lang.Boolean, JFXHBox](_.fillHeightProperty().asObject())
+
     val spacing: Attribute[Double, JFXHBox] =
       FXAttribute[java.lang.Double, JFXHBox](_.spacingProperty().asObject())
 
   }
 
 
-  object vBox extends VBoxSharedAttributes
+  object vBox extends VBoxAttributes
 
-  object hBox extends HBoxSharedAttributes
+  object hBox extends HBoxAttributes
 
 }

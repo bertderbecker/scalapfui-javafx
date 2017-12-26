@@ -8,6 +8,13 @@ import io.github.bertderbecker.scalapfui.javafx.attribute.FXReadableAttribute
 
 object ParentExts {
 
-  val needsLayout: ReadableAttribute[Boolean, JFXParent] =
-    FXReadableAttribute[java.lang.Boolean, JFXParent](_.needsLayoutProperty())
+  trait Attributes extends NodeExts.Attributes {
+
+    val needsLayout: ReadableAttribute[Boolean, JFXParent] =
+      FXReadableAttribute[java.lang.Boolean, JFXParent](_.needsLayoutProperty())
+
+  }
+
+  object parent extends Attributes
+
 }

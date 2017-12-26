@@ -5,7 +5,9 @@ import javafx.scene.layout.{BackgroundFill, Border, CornerRadii, Background => J
 import javafx.scene.paint.Paint
 import javafx.scene.shape.Shape
 import javafx.geometry.{Insets => JFXInsets}
+import io.github.bertderbecker.scalapfui.javafx.scene.ParentExts
 
+import io.github.bertderbecker.scalapfui.Modifier
 import io.github.bertderbecker.scalapfui.attribute.{Attribute, ReadableAttribute}
 import io.github.bertderbecker.scalapfui.javafx.Implicits._
 import io.github.bertderbecker.scalapfui.javafx.attribute.{FXAttribute, FXReadableAttribute}
@@ -15,16 +17,27 @@ object RegionExts {
 
   val Region: FXElementTag[JFXRegion] = FXElementTag(() => new JFXRegion())
 
-  val background: Attribute[JFXBackground, JFXRegion] =
-    FXAttribute[JFXBackground, JFXRegion](_.backgroundProperty())
+  trait Attributes extends ParentExts.Attributes {
 
-  object Background {
+    val background: Attribute[JFXBackground, JFXRegion] =
+      FXAttribute[JFXBackground, JFXRegion](_.backgroundProperty())
 
-    def fillWith(paint: Paint) =
-      new JFXBackground(new BackgroundFill(paint, CornerRadii.EMPTY, JFXInsets.EMPTY))
-  }
+    object Background {
+      def fillWith(paint: Paint): Modifier[JFXBackground, JFXRegion] =
+        background := new JFXBackground(new BackgroundFill(paint, CornerRadii.EMPTY, JFXInsets.EMPTY))
+    }
 
-  trait SharedAttributes {
+    val border: Attribute[Border, JFXRegion] =
+      FXAttribute[Border, JFXRegion](_.borderProperty())
+
+    val cacheShape: Attribute[Boolean, JFXRegion] =
+      FXAttribute[java.lang.Boolean, JFXRegion](_.cacheShapeProperty())
+
+    val centerShape: Attribute[Boolean, JFXRegion] =
+      FXAttribute[java.lang.Boolean, JFXRegion](_.centerShapeProperty())
+
+    val insets: ReadableAttribute[Insets, JFXRegion] =
+      FXReadableAttribute[javafx.geometry.Insets, JFXRegion](_.insetsProperty())
 
     val height: ReadableAttribute[Double, JFXRegion] =
       FXReadableAttribute[java.lang.Double, JFXRegion](_.heightProperty().asObject())
@@ -32,15 +45,17 @@ object RegionExts {
     val width: ReadableAttribute[Double, JFXRegion] =
       FXReadableAttribute[java.lang.Double, JFXRegion](_.widthProperty().asObject())
 
-
     val maxHeight: ReadableAttribute[Double, JFXRegion] =
       FXReadableAttribute[java.lang.Double, JFXRegion](_.maxHeightProperty().asObject())
-
 
     val maxWidth: ReadableAttribute[Double, JFXRegion] =
       FXReadableAttribute[java.lang.Double, JFXRegion](_.maxWidthProperty().asObject())
 
+    val opaqueInsets: Attribute[Insets, JFXRegion] =
+      FXAttribute[javafx.geometry.Insets, JFXRegion](_.opaqueInsetsProperty())
 
+    val padding: Attribute[Insets, JFXRegion] =
+      FXAttribute[javafx.geometry.Insets, JFXRegion](_.paddingProperty())
 
     val prefHeight: Attribute[Double, JFXRegion] =
       FXAttribute[java.lang.Double, JFXRegion](_.prefHeightProperty().asObject())
@@ -48,35 +63,17 @@ object RegionExts {
     val prefWidth: Attribute[Double, JFXRegion] =
       FXAttribute[java.lang.Double, JFXRegion](_.prefWidthProperty().asObject())
 
+    val scaleShape: Attribute[Boolean, JFXRegion] =
+      FXAttribute[java.lang.Boolean, JFXRegion](_.scaleShapeProperty())
+
+    val shape: Attribute[Shape, JFXRegion] =
+      FXAttribute[Shape, JFXRegion](_.shapeProperty())
+
+    val snapToPixel: Attribute[Boolean, JFXRegion] =
+      FXAttribute[java.lang.Boolean, JFXRegion](_.snapToPixelProperty())
+
   }
 
-  object region extends SharedAttributes
-
-  val border: Attribute[Border, JFXRegion] =
-    FXAttribute[Border, JFXRegion](_.borderProperty())
-
-  val cacheShape: Attribute[Boolean, JFXRegion] =
-    FXAttribute[java.lang.Boolean, JFXRegion](_.cacheShapeProperty())
-
-  val centerShape: Attribute[Boolean, JFXRegion] =
-    FXAttribute[java.lang.Boolean, JFXRegion](_.centerShapeProperty())
-
-  val insets: ReadableAttribute[Insets, JFXRegion] =
-    FXReadableAttribute[javafx.geometry.Insets, JFXRegion](_.insetsProperty())
-
-  val opaqueInsets: Attribute[Insets, JFXRegion] =
-    FXAttribute[javafx.geometry.Insets, JFXRegion](_.opaqueInsetsProperty())
-
-  val padding: Attribute[Insets, JFXRegion] =
-    FXAttribute[javafx.geometry.Insets, JFXRegion](_.paddingProperty())
-
-  val scaleShape: Attribute[Boolean, JFXRegion] =
-    FXAttribute[java.lang.Boolean, JFXRegion](_.scaleShapeProperty())
-
-  val shape: Attribute[Shape, JFXRegion] =
-    FXAttribute[Shape, JFXRegion](_.shapeProperty())
-
-  val snapToPixel: Attribute[Boolean, JFXRegion] =
-    FXAttribute[java.lang.Boolean, JFXRegion](_.snapToPixelProperty())
+  object region extends Attributes
 
 }

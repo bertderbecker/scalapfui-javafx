@@ -46,6 +46,7 @@ object JFXApp {
       //println("Scene root children: " + JFXApp.Stage.getScene.getRoot.getChildrenUnmodifiable)
       if (JFXApp.AutoShow) {
         JFXApp.Stage.show()
+        JFXApp.Stage.onCloseRequestProperty().setValue(_ => System.exit(0))
       }
     }
 

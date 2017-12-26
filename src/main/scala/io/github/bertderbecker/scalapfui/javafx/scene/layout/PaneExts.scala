@@ -9,8 +9,8 @@ object PaneExts {
 
   val Pane: FXParentTag[Pane] = FXParentTag[Pane](() => new Pane(), _.getChildren)
 
-  trait SharedAttributes extends RegionExts.SharedAttributes
+  trait Attributes extends RegionExts.Attributes
 
-  object pane extends SharedAttributes
+  object pane extends Attributes
 
 }

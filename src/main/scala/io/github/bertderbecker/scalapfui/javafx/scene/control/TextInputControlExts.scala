@@ -9,12 +9,12 @@ import io.github.bertderbecker.scalapfui.javafx.attribute.FXAttribute
 //NOT READY!! //TODO: make ready
 object TextInputControlExts {
 
-  trait SharedAttributes {
+  trait Attributes extends ControlExts.Attributes{
 
     val text: Attribute[String, JFXTextInputControl] =
       FXAttribute[String, JFXTextInputControl](_.textProperty())
   }
 
-  object textInputControl extends SharedAttributes
+  object textInputControl extends Attributes
 
 }

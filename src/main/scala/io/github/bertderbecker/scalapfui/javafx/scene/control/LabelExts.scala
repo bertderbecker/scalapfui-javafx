@@ -36,8 +36,8 @@ object LabelExts {
     }
   }
 
-  trait SharedAttributes extends LabeledExts.SharedAttributes
+  trait Attributes extends LabeledExts.Attributes
 
-  object label extends SharedAttributes
+  object label extends Attributes
 
 }

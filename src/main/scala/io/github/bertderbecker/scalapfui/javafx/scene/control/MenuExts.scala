@@ -26,10 +26,7 @@ object MenuExts {
         }
       )
 
-  val showing: ReadableAttribute[Boolean, JFXMenu] =
-    FXReadableAttribute[java.lang.Boolean, JFXMenu](_.showingProperty())
-
-  trait SharedAttributes extends MenuItemExts.SharedAttributes {
+  trait Attributes extends MenuItemExts.Attributes {
 
     val onHidden: Attribute[EventReactor[Event], JFXMenu] =
       FXAttribute.forEventReactor(_.onHiddenProperty())
@@ -43,8 +40,10 @@ object MenuExts {
     val onShown: Attribute[EventReactor[Event], JFXMenu] =
       FXAttribute.forEventReactor(_.onShownProperty())
 
+    val showing: ReadableAttribute[Boolean, JFXMenu] =
+      FXReadableAttribute[java.lang.Boolean, JFXMenu](_.showingProperty())
   }
 
-  object menu extends SharedAttributes
+  object menu extends Attributes
 
 }

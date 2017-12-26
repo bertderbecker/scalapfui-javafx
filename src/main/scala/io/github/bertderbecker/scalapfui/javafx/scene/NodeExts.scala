@@ -20,152 +20,151 @@ import scala.language.implicitConversions
 //Ready
 object NodeExts {
 
-  val accessibleHelp: Attribute[String, Node] =
-    FXAttribute[String, Node](_.accessibleHelpProperty())
+  trait Attributes {
 
-  val accessibleRoleDescription: Attribute[String, Node] =
-    FXAttribute[String, Node](_.accessibleRoleDescriptionProperty())
+    val accessibleHelp: Attribute[String, Node] =
+      FXAttribute[String, Node](_.accessibleHelpProperty())
 
-  //TODO: support accessible roles
-  val accessibleRole: Attribute[AccessibleRole, Node] =
-    FXAttribute[AccessibleRole, Node](_.accessibleRoleProperty())
+    val accessibleRoleDescription: Attribute[String, Node] =
+      FXAttribute[String, Node](_.accessibleRoleDescriptionProperty())
 
-  val accessibleText: Attribute[String, Node] =
-    FXAttribute[String, Node](_.accessibleTextProperty())
+    //TODO: support accessible roles
+    val accessibleRole: Attribute[AccessibleRole, Node] =
+      FXAttribute[AccessibleRole, Node](_.accessibleRoleProperty())
 
-  val blendMode: Attribute[BlendMode, Node] =
-    FXAttribute[BlendMode, Node](_.blendModeProperty())
+    val accessibleText: Attribute[String, Node] =
+      FXAttribute[String, Node](_.accessibleTextProperty())
 
-  //TODO: support bounds
-  val boundsInLocal: ReadableAttribute[Bounds, Node] =
-    FXReadableAttribute[Bounds, Node](_.boundsInLocalProperty())
+    val blendMode: Attribute[BlendMode, Node] =
+      FXAttribute[BlendMode, Node](_.blendModeProperty())
 
-  val boundsInParent: ReadableAttribute[Bounds, Node] =
-    FXReadableAttribute[Bounds, Node](_.boundsInParentProperty())
+    //TODO: support bounds
+    val boundsInLocal: ReadableAttribute[Bounds, Node] =
+      FXReadableAttribute[Bounds, Node](_.boundsInLocalProperty())
 
-  val cacheHint: Attribute[CacheHint, Node] =
-    FXAttribute[CacheHint, Node](_.cacheHintProperty())
+    val boundsInParent: ReadableAttribute[Bounds, Node] =
+      FXReadableAttribute[Bounds, Node](_.boundsInParentProperty())
 
-  val cache: Attribute[Boolean, Node] =
-    FXAttribute[java.lang.Boolean, Node](_.cacheProperty())
+    val cacheHint: Attribute[CacheHint, Node] =
+      FXAttribute[CacheHint, Node](_.cacheHintProperty())
 
-  val clip: Attribute[FXElement[_ <: Node], Node] =
-    FXAttribute.fromProperty[FXElement[_ <: Node], Node](native =>
-      propertyInvariant
-        .imap(
-          FXProperty[Node](native.clipProperty())
-        )(
-          n => FXElement.wrap(n).asInstanceOf[FXElement[_ <: Node]]
-        )((_: FXElement[_ <: Node]).render))
+    val cache: Attribute[Boolean, Node] =
+      FXAttribute[java.lang.Boolean, Node](_.cacheProperty())
 
-  //TODO: support cursor
-  val cursor: Attribute[Cursor, Node] =
-    FXAttribute[Cursor, Node](_.cursorProperty())
+    val clip: Attribute[FXElement[_ <: Node], Node] =
+      FXAttribute.fromProperty[FXElement[_ <: Node], Node](native =>
+        propertyInvariant
+          .imap(
+            FXProperty[Node](native.clipProperty())
+          )(
+            n => FXElement.wrap(n).asInstanceOf[FXElement[_ <: Node]]
+          )((_: FXElement[_ <: Node]).render))
 
-  val depthTest: Attribute[DepthTest, Node] =
-    FXAttribute[DepthTest, Node](_.depthTestProperty())
+    //TODO: support cursor
+    val cursor: Attribute[Cursor, Node] =
+      FXAttribute[Cursor, Node](_.cursorProperty())
 
-  val disabled: ReadableAttribute[Boolean, Node] =
-    FXReadableAttribute[java.lang.Boolean, Node](_.disabledProperty())
+    val depthTest: Attribute[DepthTest, Node] =
+      FXAttribute[DepthTest, Node](_.depthTestProperty())
 
-  val disable: Attribute[Boolean, Node] =
-    FXAttribute[java.lang.Boolean, Node](_.disableProperty())
+    val disabled: ReadableAttribute[Boolean, Node] =
+      FXReadableAttribute[java.lang.Boolean, Node](_.disabledProperty())
 
-  val effectiveNodeOrientation: ReadableAttribute[NodeOrientation, Node] =
-    FXReadableAttribute[NodeOrientation, Node](_.effectiveNodeOrientationProperty())
+    val disable: Attribute[Boolean, Node] =
+      FXAttribute[java.lang.Boolean, Node](_.disableProperty())
 
-  val effect: Attribute[Effect, Node] =
-    FXAttribute[Effect, Node](_.effectProperty())
+    val effectiveNodeOrientation: ReadableAttribute[NodeOrientation, Node] =
+      FXReadableAttribute[NodeOrientation, Node](_.effectiveNodeOrientationProperty())
 
-  val focused: ReadableAttribute[Boolean, Node] =
-    FXReadableAttribute[java.lang.Boolean, Node](_.focusedProperty())
+    val effect: Attribute[Effect, Node] =
+      FXAttribute[Effect, Node](_.effectProperty())
 
-  val focusTraversable: Attribute[Boolean, Node] =
-    FXAttribute[java.lang.Boolean, Node](_.focusTraversableProperty())
+    val focused: ReadableAttribute[Boolean, Node] =
+      FXReadableAttribute[java.lang.Boolean, Node](_.focusedProperty())
 
-  val hover: ReadableAttribute[Boolean, Node] =
-    FXReadableAttribute[java.lang.Boolean, Node](_.hoverProperty())
+    val focusTraversable: Attribute[Boolean, Node] =
+      FXAttribute[java.lang.Boolean, Node](_.focusTraversableProperty())
 
-  val id: Attribute[String, Node] =
-    FXAttribute[String, Node](_.idProperty())
+    val hover: ReadableAttribute[Boolean, Node] =
+      FXReadableAttribute[java.lang.Boolean, Node](_.hoverProperty())
 
-  val inputMethodRequests: Attribute[InputMethodRequests, Node] =
-    FXAttribute[InputMethodRequests, Node](_.inputMethodRequestsProperty())
+    val id: Attribute[String, Node] =
+      FXAttribute[String, Node](_.idProperty())
 
-  val layoutBounds: ReadableAttribute[Bounds, Node] =
-    FXReadableAttribute[Bounds, Node](_.layoutBoundsProperty())
+    val inputMethodRequests: Attribute[InputMethodRequests, Node] =
+      FXAttribute[InputMethodRequests, Node](_.inputMethodRequestsProperty())
 
-  val layoutX: Attribute[Double, Node] =
-    FXAttribute[java.lang.Double, Node](_.layoutXProperty().asObject())
+    val layoutBounds: ReadableAttribute[Bounds, Node] =
+      FXReadableAttribute[Bounds, Node](_.layoutBoundsProperty())
 
-  val layoutY: Attribute[Double, Node] =
-    FXAttribute[java.lang.Double, Node](_.layoutYProperty().asObject())
+    val layoutX: Attribute[Double, Node] =
+      FXAttribute[java.lang.Double, Node](_.layoutXProperty().asObject())
 
-  val localToParentTransform: ReadableAttribute[Transform, Node] =
-    FXReadableAttribute[Transform, Node](_.localToParentTransformProperty())
+    val layoutY: Attribute[Double, Node] =
+      FXAttribute[java.lang.Double, Node](_.layoutYProperty().asObject())
 
-  val localToSceneTransform: ReadableAttribute[Transform, Node] =
-    FXReadableAttribute[Transform, Node](_.localToSceneTransformProperty())
+    val localToParentTransform: ReadableAttribute[Transform, Node] =
+      FXReadableAttribute[Transform, Node](_.localToParentTransformProperty())
 
-  val managed: Attribute[Boolean, Node] =
-    FXAttribute[java.lang.Boolean, Node](_.managedProperty().asObject())
+    val localToSceneTransform: ReadableAttribute[Transform, Node] =
+      FXReadableAttribute[Transform, Node](_.localToSceneTransformProperty())
 
-  val mouseTransparent: Attribute[Boolean, Node] =
-    FXAttribute[java.lang.Boolean, Node](_.mouseTransparentProperty().asObject())
+    val managed: Attribute[Boolean, Node] =
+      FXAttribute[java.lang.Boolean, Node](_.managedProperty().asObject())
 
-  val nodeOrientation: ReadableAttribute[NodeOrientation, Node] =
-    FXReadableAttribute[NodeOrientation, Node](_.nodeOrientationProperty())
+    val mouseTransparent: Attribute[Boolean, Node] =
+      FXAttribute[java.lang.Boolean, Node](_.mouseTransparentProperty().asObject())
 
-  val parent: ReadableAttribute[Parent, Node] =
-    FXReadableAttribute[Parent, Node](_.parentProperty())
-
-  val pickOnBounds: Attribute[Boolean, Node] =
-    FXAttribute[java.lang.Boolean, Node](_.pickOnBoundsProperty().asObject())
-
-  val pressed: ReadableAttribute[Boolean, Node] =
-    FXReadableAttribute[java.lang.Boolean, Node](_.pressedProperty().asObject())
-
-  val rotate: Attribute[Double, Node] =
-    FXAttribute[java.lang.Double, Node](_.rotateProperty().asObject())
-
-  val rotationAxis: Attribute[Point3D, Node] =
-    FXAttribute[Point3D, Node](_.rotationAxisProperty())
-
-  val scaleX: Attribute[Double, Node] =
-    FXAttribute[java.lang.Double, Node](_.scaleXProperty().asObject())
-
-  val scaleY: Attribute[Double, Node] =
-    FXAttribute[java.lang.Double, Node](_.scaleYProperty().asObject())
-
-  val scaleZ: Attribute[Double, Node] =
-    FXAttribute[java.lang.Double, Node](_.scaleZProperty().asObject())
-
-  //TODO: Is a ReadableAttribute "Scene" necessary?
-
-  //Style is ready
-
-  val translateX: Attribute[Double, Node] =
-    FXAttribute[java.lang.Double, Node](_.translateXProperty().asObject())
-
-  val translateY: Attribute[Double, Node] =
-    FXAttribute[java.lang.Double, Node](_.translateYProperty().asObject())
-
-  val translateZ: Attribute[Double, Node] =
-    FXAttribute[java.lang.Double, Node](_.translateZProperty().asObject())
-
-  val visible: Attribute[Boolean, Node] =
-    FXAttribute[java.lang.Boolean, Node](_.visibleProperty().asObject())
-
-
-  //TODO: support actions
-
-  trait SharedAttributes {
+    val nodeOrientation: ReadableAttribute[NodeOrientation, Node] =
+      FXReadableAttribute[NodeOrientation, Node](_.nodeOrientationProperty())
 
     lazy val onContextMenuRequested: Attribute[EventReactor[ContextMenuEvent], Node] =
       FXAttribute.forEventReactorConformist(_.onContextMenuRequestedProperty())
 
+    val parent: ReadableAttribute[Parent, Node] =
+      FXReadableAttribute[Parent, Node](_.parentProperty())
+
+    val pickOnBounds: Attribute[Boolean, Node] =
+      FXAttribute[java.lang.Boolean, Node](_.pickOnBoundsProperty().asObject())
+
+    val pressed: ReadableAttribute[Boolean, Node] =
+      FXReadableAttribute[java.lang.Boolean, Node](_.pressedProperty().asObject())
+
+    val rotate: Attribute[Double, Node] =
+      FXAttribute[java.lang.Double, Node](_.rotateProperty().asObject())
+
+    val rotationAxis: Attribute[Point3D, Node] =
+      FXAttribute[Point3D, Node](_.rotationAxisProperty())
+
+    val scaleX: Attribute[Double, Node] =
+      FXAttribute[java.lang.Double, Node](_.scaleXProperty().asObject())
+
+    val scaleY: Attribute[Double, Node] =
+      FXAttribute[java.lang.Double, Node](_.scaleYProperty().asObject())
+
+    val scaleZ: Attribute[Double, Node] =
+      FXAttribute[java.lang.Double, Node](_.scaleZProperty().asObject())
+
     val style: Attribute[String, Node] = FXAttribute[String, Node](_.styleProperty())
+
+    //TODO: Is a ReadableAttribute "Scene" necessary?
+
+
+    val translateX: Attribute[Double, Node] =
+      FXAttribute[java.lang.Double, Node](_.translateXProperty().asObject())
+
+    val translateY: Attribute[Double, Node] =
+      FXAttribute[java.lang.Double, Node](_.translateYProperty().asObject())
+
+    val translateZ: Attribute[Double, Node] =
+      FXAttribute[java.lang.Double, Node](_.translateZProperty().asObject())
+
+    val visible: Attribute[Boolean, Node] =
+      FXAttribute[java.lang.Boolean, Node](_.visibleProperty().asObject())
+
+    //TODO: support actions
+
   }
 
-  object node extends SharedAttributes
+  object node extends Attributes
 }

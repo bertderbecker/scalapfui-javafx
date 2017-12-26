@@ -2,9 +2,9 @@ name := "scalapfui-javafx"
 
 organization := "io.github.bertderbecker"
 
-version := "0.0.8"
+version := "0.0.11"
 
-scalaVersion := "2.12.3"
+scalaVersion := "2.12.4"
 
 isSnapshot := true
 

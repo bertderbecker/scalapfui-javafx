@@ -19,12 +19,9 @@ object TextFieldExts {
 
   val TextField: FXElementTag[TextField] = FXElementTag(() => new TextField())
 
+  trait Attributes extends TextInputControlExts.Attributes
 
-  val prefColumnCount: Attribute[Int, TextField] = FXAttribute[java.lang.Integer, TextField](_.prefColumnCountProperty().asObject())
-
-  trait SharedAttributes extends TextInputControlExts.SharedAttributes
-
-  object textField extends SharedAttributes {
+  object textField extends Attributes {
 
     //not sure if it works
     lazy val onAction: Attribute[EventReactor[ActionEvent], TextField] =
@@ -47,6 +44,9 @@ object TextFieldExts {
       val TopLeft: Modifier[Pos, TextField] = alignment := Pos.TOP_LEFT
       val TopRight: Modifier[Pos, TextField] = alignment := Pos.TOP_RIGHT
     }
+
+    val prefColumnCount: Attribute[Int, TextField] = FXAttribute[java.lang.Integer, TextField](_.prefColumnCountProperty().asObject())
+
   }
 
   //TODO: support supertypes
