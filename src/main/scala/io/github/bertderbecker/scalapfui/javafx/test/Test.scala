@@ -28,7 +28,6 @@ object Test extends JFXApp {
 
   def buildLayout(x: Int): FXParent[JFXVBox] = {
     println("buildLayout")
-    try {
       VBox(
         MenuBar(
           Menu(
@@ -46,15 +45,9 @@ object Test extends JFXApp {
           textField.text := "" + x + " Actions",
           textField.text ==> textFieldText,
           textField.onAction := modify(textFieldText := "entered !!"),
-          textField.onContextMenuRequested := EventReactor.rebuild(_ => buildLayout(x - 1))
+          textField.onMouseReleased := EventReactor.rebuild(_ => buildLayout(x - 1))
         )
       )()
-    } catch {
-      case e: Exception =>
-        e.printStackTrace()
-        println("catched exception")
-        throw new Exception
-    }
   }
 
   primaryStage =

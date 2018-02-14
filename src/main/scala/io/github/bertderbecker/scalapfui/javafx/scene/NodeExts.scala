@@ -2,7 +2,7 @@ package io.github.bertderbecker.scalapfui.javafx.scene
 
 import javafx.geometry.{Bounds, NodeOrientation, Point3D}
 import javafx.scene.effect.{BlendMode, Effect}
-import javafx.scene.input.{ContextMenuEvent, InputMethodRequests}
+import javafx.scene.input.{ContextMenuEvent, DragEvent, InputMethodRequests, MouseEvent}
 import javafx.scene.transform.Transform
 import javafx.scene.{Node, Parent => JFXParent, _}
 
@@ -116,8 +116,19 @@ object NodeExts {
     val nodeOrientation: ReadableAttribute[NodeOrientation, Node] =
       FXReadableAttribute[NodeOrientation, Node](_.nodeOrientationProperty())
 
-    lazy val onContextMenuRequested: Attribute[EventReactor[ContextMenuEvent], Node] =
+    val onContextMenuRequested: Attribute[EventReactor[ContextMenuEvent], Node] =
       FXAttribute.forEventReactorConformist(_.onContextMenuRequestedProperty())
+
+    val onDragDetected: Attribute[EventReactor[MouseEvent], Node] =
+      FXAttribute.forEventReactorConformist(_.onDragDetectedProperty())
+
+    val onDragDone: Attribute[EventReactor[DragEvent], Node] =
+      FXAttribute.forEventReactorConformist(_.onDragDoneProperty())
+
+    //TODO: add all other actions
+
+    val onMouseReleased: Attribute[EventReactor[MouseEvent], Node] =
+      FXAttribute.forEventReactorConformist(_.onMouseReleasedProperty())
 
     val parent: ReadableAttribute[JFXParent, Node] =
       FXReadableAttribute[JFXParent, Node](_.parentProperty())
@@ -147,7 +158,6 @@ object NodeExts {
 
     //TODO: Is a ReadableAttribute "Scene" necessary?
 
-
     val translateX: Attribute[Double, Node] =
       FXAttribute[java.lang.Double, Node](_.translateXProperty().asObject())
 
@@ -159,8 +169,6 @@ object NodeExts {
 
     val visible: Attribute[Boolean, Node] =
       FXAttribute[java.lang.Boolean, Node](_.visibleProperty().asObject())
-
-    //TODO: support actions
 
   }
 
