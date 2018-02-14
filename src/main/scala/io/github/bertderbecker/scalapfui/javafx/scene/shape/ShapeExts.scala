@@ -1,13 +1,10 @@
 package io.github.bertderbecker.scalapfui.javafx.scene.shape
 
 import javafx.scene.paint.Paint
-import javafx.scene.shape.{Shape, StrokeLineCap => JFXStrokeLineCap}
-import javafx.scene.shape.{Shape, StrokeLineJoin => JFXStrokeLineJoin}
-import javafx.scene.shape.{Shape, StrokeType => JFXStrokeType}
+import javafx.scene.shape.{Shape, StrokeLineCap => JFXStrokeLineCap, StrokeLineJoin => JFXStrokeLineJoin, StrokeType => JFXStrokeType}
 
 import io.github.bertderbecker.scalapfui.Modifier
 import io.github.bertderbecker.scalapfui.attribute.Attribute
-import io.github.bertderbecker.scalapfui.javafx.FXElementTag
 import io.github.bertderbecker.scalapfui.javafx.Implicits._
 import io.github.bertderbecker.scalapfui.javafx.attribute.FXAttribute
 import io.github.bertderbecker.scalapfui.javafx.scene.NodeExts

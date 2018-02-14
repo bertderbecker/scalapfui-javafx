@@ -21,9 +21,10 @@ object FXReadableAttribute
 
   trait ReadableAttributeInstances {
 
-    implicit def readableProperty2readableAttribute[T, N](readableProperty: ReadableProperty[T]): ReadableAttribute[T, N] =
-      new ReadableAttribute[T, N] {
-        override def readablePropertyExtr: (N) => ReadableProperty[T] = (_: N) => readableProperty
+    implicit def readableProperty2readableAttribute[T, Native](readableProperty: ReadableProperty[T]
+                                                              ): ReadableAttribute[T, Native] =
+      new ReadableAttribute[T, Native] {
+        override val readablePropertyExtr: (Native) => ReadableProperty[T] = Native => readableProperty
       }
 
     implicit def readableAttributeFunctor[Native]: Functor[ReadableAttribute[?, Native]] =

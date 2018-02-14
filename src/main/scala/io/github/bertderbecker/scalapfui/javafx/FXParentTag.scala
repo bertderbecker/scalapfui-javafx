@@ -3,7 +3,7 @@ package io.github.bertderbecker.scalapfui.javafx
 import javafx.collections.ObservableList
 import javafx.scene.{Node, Parent => JFXParent}
 
-import io.github.bertderbecker.scalapfui.{Element, Modifier, ParentTag}
+import io.github.bertderbecker.scalapfui.{Modifier, ParentTag}
 
 case class FXParentTag[Native <: JFXParent](pure: () => Native,
                                             childrenExtr: Native => ObservableList[Node]

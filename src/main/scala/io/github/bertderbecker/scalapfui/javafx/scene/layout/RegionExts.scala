@@ -1,17 +1,18 @@
 package io.github.bertderbecker.scalapfui.javafx.scene.layout
 
-import io.github.bertderbecker.scalapfui.javafx.{FXElementTag, FXParent, FXParentTag}
+import javafx.geometry.{Insets => JFXInsets}
 import javafx.scene.layout.{BackgroundFill, Border, CornerRadii, Background => JFXBackground, Region => JFXRegion}
 import javafx.scene.paint.Paint
 import javafx.scene.shape.Shape
-import javafx.geometry.{Insets => JFXInsets}
-import io.github.bertderbecker.scalapfui.javafx.scene.ParentExts
 
 import io.github.bertderbecker.scalapfui.Modifier
 import io.github.bertderbecker.scalapfui.attribute.{Attribute, ReadableAttribute}
+import io.github.bertderbecker.scalapfui.javafx.FXElementTag
 import io.github.bertderbecker.scalapfui.javafx.Implicits._
 import io.github.bertderbecker.scalapfui.javafx.attribute.{FXAttribute, FXReadableAttribute}
 import io.github.bertderbecker.scalapfui.javafx.geometry.Insets
+import io.github.bertderbecker.scalapfui.javafx.property.FXProperty
+import io.github.bertderbecker.scalapfui.javafx.scene.ParentExts
 
 object RegionExts {
 
@@ -23,9 +24,21 @@ object RegionExts {
       FXAttribute[JFXBackground, JFXRegion](_.backgroundProperty())
 
     object Background {
+
       def fillWith(paint: Paint): Modifier[JFXBackground, JFXRegion] =
         background := new JFXBackground(new BackgroundFill(paint, CornerRadii.EMPTY, JFXInsets.EMPTY))
     }
+
+    val backgroundFill: Attribute[Paint, JFXRegion] =
+      FXAttribute.fromProperty[Paint, JFXRegion] { native =>
+        propertyInvariant.imap(
+          FXProperty[JFXBackground](native.backgroundProperty())
+        ) { b: JFXBackground =>
+            b.getFills.get(0).getFill
+        } { p: Paint =>
+          new JFXBackground(new BackgroundFill(p, CornerRadii.EMPTY, JFXInsets.EMPTY))
+        }
+      }
 
     val border: Attribute[Border, JFXRegion] =
       FXAttribute[Border, JFXRegion](_.borderProperty())

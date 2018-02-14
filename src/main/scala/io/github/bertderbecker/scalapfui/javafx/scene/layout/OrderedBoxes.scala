@@ -1,15 +1,12 @@
 package io.github.bertderbecker.scalapfui.javafx.scene.layout
 
-import javafx.beans.property.{BooleanProperty, DoubleProperty}
 import javafx.geometry.Pos
-
-import io.github.bertderbecker.scalapfui.attribute.Attribute
-import javafx.scene.layout.{VBox => JFXVBox}
-import javafx.scene.layout.{HBox => JFXHBox}
+import javafx.scene.layout.{HBox => JFXHBox, VBox => JFXVBox}
 
 import io.github.bertderbecker.scalapfui.Modifier
-import io.github.bertderbecker.scalapfui.javafx.Implicits._
+import io.github.bertderbecker.scalapfui.attribute.Attribute
 import io.github.bertderbecker.scalapfui.javafx.FXParentTag
+import io.github.bertderbecker.scalapfui.javafx.Implicits._
 import io.github.bertderbecker.scalapfui.javafx.attribute.FXAttribute
 
 import scala.language.implicitConversions

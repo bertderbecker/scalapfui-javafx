@@ -6,8 +6,6 @@ import javafx.event.{Event, EventHandler}
 import javafx.scene.{Parent => JFXParent}
 
 import io.github.bertderbecker.scalapfui.attribute.Attribute
-import io.github.bertderbecker.scalapfui.javafx.FXElement
-import io.github.bertderbecker.scalapfui.javafx.Implicits._
 import io.github.bertderbecker.scalapfui.javafx.event.EventReactor
 import io.github.bertderbecker.scalapfui.javafx.property.FXProperty
 import io.github.bertderbecker.scalapfui.property.Property
@@ -25,19 +23,26 @@ object FXAttribute extends AttributeCompanion[Attribute, JFXProperty] {
 
   def apply[T, Native](
                         propertyExtractor: Native => JFXProperty[T]
-                      ): Attribute[T, Native] =
-
-    new Attribute[T, Native] {
-      override def propertyExtr: Native => Property[T] = native =>
-        FXProperty(propertyExtractor(native))
+                      ): Attribute[T, Native] = {
+    println("begin FXAttribute.apply")
+    val res = new Attribute[T, Native] {
+      override val propertyExtr: Native => Property[T] = { native =>
+        println("begin propertyExtr in line FXAttribute.30 -> FXAttribute.apply")
+        val res = FXProperty(propertyExtractor(native))
+        println("finish propertyExtr in line FXAttribute.32 -> FXAttribute.apply")
+        res
+      }
     }
+    println("finish FXAttribute.apply")
+    res
+  }
 
   def fromProperty[T, Native](
                                propertyExtractor: Native => Property[T]
                              ): Attribute[T, Native] =
 
     new Attribute[T, Native] {
-      override def propertyExtr: Native => Property[T] = propertyExtractor
+      override val propertyExtr: Native => Property[T] = propertyExtractor
     }
 
   def forEventReactor[E <: Event, Native](property: Native => JFXProperty[EventHandler[E]]): Attribute[EventReactor[E], Native] =

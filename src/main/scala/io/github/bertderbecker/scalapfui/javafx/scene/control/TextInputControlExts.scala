@@ -1,6 +1,6 @@
 package io.github.bertderbecker.scalapfui.javafx.scene.control
 
-import javafx.scene.control.{Labeled, TextInputControl => JFXTextInputControl}
+import javafx.scene.control.{TextInputControl => JFXTextInputControl}
 
 import io.github.bertderbecker.scalapfui.attribute.Attribute
 import io.github.bertderbecker.scalapfui.javafx.attribute.FXAttribute

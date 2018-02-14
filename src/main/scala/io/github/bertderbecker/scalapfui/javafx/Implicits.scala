@@ -26,7 +26,7 @@ object Implicits
     with Includes {
 
 
-  implicit def covariantElement2seq[CC[_], T](x: CC[_ <: T]): Seq[CC[_ <: T]] = Seq(x)
+  implicit def covariantElement2seq[CC[N] <: FXElement[N], T](x: CC[_ <: T]): Seq[CC[_ <: T]] = Seq(x)
 
   implicit def jDoubleReadableAttr2scalaDoubleReadableAttr[N](
                                                                jattr: ReadableAttribute[java.lang.Double, N]

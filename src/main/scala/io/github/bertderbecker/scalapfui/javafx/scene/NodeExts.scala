@@ -2,18 +2,16 @@ package io.github.bertderbecker.scalapfui.javafx.scene
 
 import javafx.geometry.{Bounds, NodeOrientation, Point3D}
 import javafx.scene.effect.{BlendMode, Effect}
-import javafx.scene._
 import javafx.scene.input.{ContextMenuEvent, InputMethodRequests}
-import javafx.scene.{Node, Parent => JFXParent}
 import javafx.scene.transform.Transform
+import javafx.scene.{Node, Parent => JFXParent, _}
 
-import io.github.bertderbecker.scalapfui.javafx.Implicits._
 import io.github.bertderbecker.scalapfui.attribute.{Attribute, ReadableAttribute}
 import io.github.bertderbecker.scalapfui.javafx.FXElement
+import io.github.bertderbecker.scalapfui.javafx.Implicits._
 import io.github.bertderbecker.scalapfui.javafx.attribute.{FXAttribute, FXReadableAttribute}
 import io.github.bertderbecker.scalapfui.javafx.event.EventReactor
 import io.github.bertderbecker.scalapfui.javafx.property.FXProperty
-import io.github.bertderbecker.scalapfui.javafx.scene.control.TextFieldExts
 
 import scala.language.implicitConversions
 
@@ -121,8 +119,8 @@ object NodeExts {
     lazy val onContextMenuRequested: Attribute[EventReactor[ContextMenuEvent], Node] =
       FXAttribute.forEventReactorConformist(_.onContextMenuRequestedProperty())
 
-    val parent: ReadableAttribute[Parent, Node] =
-      FXReadableAttribute[Parent, Node](_.parentProperty())
+    val parent: ReadableAttribute[JFXParent, Node] =
+      FXReadableAttribute[JFXParent, Node](_.parentProperty())
 
     val pickOnBounds: Attribute[Boolean, Node] =
       FXAttribute[java.lang.Boolean, Node](_.pickOnBoundsProperty().asObject())

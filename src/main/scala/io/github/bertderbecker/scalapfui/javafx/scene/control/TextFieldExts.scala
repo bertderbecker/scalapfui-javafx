@@ -7,11 +7,10 @@ import javafx.scene.{Parent => JFXParent}
 
 import io.github.bertderbecker.scalapfui.Modifier
 import io.github.bertderbecker.scalapfui.attribute.Attribute
+import io.github.bertderbecker.scalapfui.javafx.FXElementTag
 import io.github.bertderbecker.scalapfui.javafx.Implicits._
 import io.github.bertderbecker.scalapfui.javafx.attribute.FXAttribute
 import io.github.bertderbecker.scalapfui.javafx.event.EventReactor
-import io.github.bertderbecker.scalapfui.javafx.property.FXProperty
-import io.github.bertderbecker.scalapfui.javafx.{FXElement, FXElementTag}
 
 //Ready
 object TextFieldExts {

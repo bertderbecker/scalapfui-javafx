@@ -1,16 +1,12 @@
 package io.github.bertderbecker.scalapfui.javafx.stage
 
-import javafx.beans.property.SimpleObjectProperty
-import javafx.beans.value.{ChangeListener, ObservableValue}
 import javafx.scene.{Scene, Parent => JFXParent}
 import javafx.stage.{Window, WindowEvent}
 
 import io.github.bertderbecker.scalapfui.attribute.{Attribute, ReadableAttribute}
-import io.github.bertderbecker.scalapfui.javafx.FXElement
 import io.github.bertderbecker.scalapfui.javafx.Implicits._
 import io.github.bertderbecker.scalapfui.javafx.attribute.{FXAttribute, FXReadableAttribute}
 import io.github.bertderbecker.scalapfui.javafx.event.EventReactor
-import io.github.bertderbecker.scalapfui.javafx.property.FXProperty
 
 //Ready
 object WindowExts {

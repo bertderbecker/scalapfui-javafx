@@ -1,141 +1,67 @@
 package io.github.bertderbecker.scalapfui.javafx.test
 
-import javafx.beans.property.{SimpleIntegerProperty, SimpleStringProperty}
-import javafx.scene.layout.{Pane => JFXPane}
-import javafx.scene.layout.{VBox => JFXVBox}
+import javafx.scene.Node
+import javafx.scene.layout.{Pane => JFXPane, VBox => JFXVBox}
 
-import io.github.bertderbecker.scalapfui.Math.Addable
-import io.github.bertderbecker.scalapfui.javafx.property.{FXProperty, FXReadableProperty}
-import io.github.bertderbecker.scalapfui.javafx.scene.SceneExts._
-import io.github.bertderbecker.scalapfui.javafx.scene.layout.OrderedBoxes._
-import io.github.bertderbecker.scalapfui.javafx.scene.layout.PaneExts._
-import io.github.bertderbecker.scalapfui.javafx.stage.StageExts._
+import io.github.bertderbecker.scalapfui.attribute.StoredReadableAttribute
+import io.github.bertderbecker.scalapfui.javafx.attribute.{FXStoredAttribute, FXStoredReadableAttribute}
+import io.github.bertderbecker.scalapfui.javafx.event.EventReactor
 import io.github.bertderbecker.scalapfui.javafx.event.EventReactor._
+import io.github.bertderbecker.scalapfui.javafx.scene.SceneExts._
 import io.github.bertderbecker.scalapfui.javafx.scene.control.MenuBarExts._
-import io.github.bertderbecker.scalapfui.javafx.scene.control.MenuItemExts._
-import io.github.bertderbecker.scalapfui.javafx.{FXParent, JFXApp}
-import io.github.bertderbecker.scalapfui.javafx.scene.control.TextFieldExts._
-import io.github.bertderbecker.scalapfui.javafx.scene.control.LabelExts._
-import io.github.bertderbecker.scalapfui.javafx.Implicits._
-import io.github.bertderbecker.scalapfui.javafx.attribute.FXStoredAttribute
 import io.github.bertderbecker.scalapfui.javafx.scene.control.MenuExts._
-import io.github.bertderbecker.scalapfui.property.{Property, ReadableProperty}
+import io.github.bertderbecker.scalapfui.javafx.scene.control.MenuItemExts._
+import io.github.bertderbecker.scalapfui.javafx.scene.control.TextFieldExts._
+import io.github.bertderbecker.scalapfui.javafx.scene.layout.OrderedBoxes._
+import io.github.bertderbecker.scalapfui.javafx.stage.StageExts._
+import io.github.bertderbecker.scalapfui.javafx.{FXParent, JFXApp}
+import io.github.bertderbecker.scalapfui.property.ReadableProperty
 
 import scala.language.postfixOps
 
 
 object Test extends JFXApp {
 
-
-
-  def test(): Unit = {
-
-    val summandor1: Property[Int] = FXProperty(1)
-    val summandor2: Property[Int] = FXProperty(2)
-    val sumProperty = new SimpleIntegerProperty(-1)
-
-    println("summandor1.value = " + summandor1.value)
-    println("summandor2.value = " + summandor2.value)
-
-    val sumReadableProperty: Property[Int] = FXProperty(5)
-
-    println("(summandor1 + summandor2).value = " + summandor1.+(summandor2).value)
-
-    val nativeSumProp: ReadableProperty[Int] = summandor1.+(summandor2)
-
-    sumReadableProperty.bindTo(nativeSumProp)
-
-    println("sumReadableProperty.value = " + sumReadableProperty.value)
-
-    val sumStringProperty: ReadableProperty[String] =
-      readablePropertyMonad.map(sumReadableProperty)(_.toString)
-
-    summandor1.onChange(newVal => println("summandor1 changed!!! New Value = " + newVal))
-    nativeSumProp.onChange(newVal => println("nativeSumProp changed!!! New Value = " + newVal))
-
-    summandor1() = 5
-    println("summandor1.value updated = " + summandor1.value)
-
-    println("Result: " + sumStringProperty.value.toString)
-
-
-    println("Start Test")
-
-    test()
-
-
-    implicit val stringAddable: Addable[String] =
-      Addable[String] { (s1, s2) =>
-        println("Combining String \"" + s1 + "\" and \"" + s2 + "\"")
-        s1 + s2
-      }
-
-    println("Build property")
-
-    val readableTextProperty = new SimpleStringProperty("A")
-    val readableTextProperty2 =
-      FXReadableProperty(new SimpleStringProperty("C"))
-
-
-    println("Build ui")
-
-    val ui: FXParent[javafx.scene.layout.Pane] =
-
-      Pane(
-        Label(
-          label.text := "Hello World!"
-        ) labelFor
-        TextField(
-          textField.text := "Entered " + 5 + " times"
-          //, onAction := (_ => buildLayout(x + 1))
-          //, onContextMenuRequested := (_ => buildLayout(x - 1))
-        )
-      )()
-
-    println("Render ui")
-
-    val p: javafx.scene.layout.Pane = ui.render
-
-    readableTextProperty.set("123456")
-
-    println("Text of Label: " + p.getChildren.get(0).asInstanceOf[javafx.scene.control.Label].getText)
-
-    println("Rendered children: " + p.getChildren)
-    println("First child: " + p.getChildren.get(0))
-
-
-    println("Finished Test")
-  }
-
-
-
   val textFieldText: FXStoredAttribute[String] = FXStoredAttribute("enter")
+  val stageWidth: StoredReadableAttribute[Double] = FXStoredReadableAttribute[Double]()
+  val stageHeight: StoredReadableAttribute[Double] = FXStoredReadableAttribute[Double]()
 
   def buildLayout(x: Int): FXParent[JFXVBox] = {
-    //test()
-    VBox(
-      MenuBar(
-        Menu(
-          MenuItem(
-            menuItem.text := "" + x + " Actions",
-            menuItem.onAction := rebuild(_ => buildLayout(x + 1))
+    println("buildLayout")
+    try {
+      VBox(
+        MenuBar(
+          Menu(
+            MenuItem(
+              menuItem.text := "" + x + " Actions",
+              menuItem.onAction := rebuild(_ => buildLayout(x + 1))
+            )
+          )(
+            menu.text := "Menu"
           )
         )(
-          menu.text := "Menu"
+          menuBar.prefWidth <== menuBar.layoutX
+        ),
+        TextField(
+          textField.text := "" + x + " Actions",
+          textField.text ==> textFieldText,
+          textField.onAction := modify(textFieldText := "entered !!"),
+          textField.onContextMenuRequested := EventReactor.rebuild(_ => buildLayout(x - 1))
         )
-      )(),
-      TextField(
-        //textField.text := "" + x + " Actions",
-        textField.text ==> textFieldText,
-        textField.onAction := modify(textFieldText := "entered !!")
-        //, textField.onContextMenuRequested := (_ => buildLayout(x - 1))
-      )
-    )()
+      )()
+    } catch {
+      case e: Exception =>
+        e.printStackTrace()
+        println("catched exception")
+        throw new Exception
+    }
   }
 
   primaryStage =
     Stage(
       stage.title := "IT WORKS!!!!!!!!!!!",
+      stage.width ==> stageWidth,
+      stage.height ==> stageHeight,
       stage.scene := Scene(
         buildLayout(0)
       )()

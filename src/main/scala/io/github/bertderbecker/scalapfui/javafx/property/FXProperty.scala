@@ -1,7 +1,6 @@
 package io.github.bertderbecker.scalapfui.javafx.property
 
 import javafx.beans.property.{SimpleObjectProperty, Property => JFXProperty}
-import javafx.beans.value.ObservableValue
 
 import cats.functor.Invariant
 import io.github.bertderbecker.scalapfui.extras.Includes._
@@ -32,9 +31,19 @@ case class FXProperty[T](jFXProperty: JFXProperty[T])
 
 object FXProperty {
 
-  def apply[T](jFXProperty: => JFXProperty[T]): Property[T] = new FXProperty(jFXProperty)
+  def apply[T](jFXProperty: => JFXProperty[T]): Property[T] = {
+    println("begin FXProperty.apply(_ : => JFXProperty")
+    val res = new FXProperty(jFXProperty)
+    println("finish FXProperty.apply(_ : => JFXProperty")
+    res
+  }
 
-  def apply[T](x: T): Property[T] = apply(new SimpleObjectProperty[T](x))
+  def apply[T](x: T): Property[T] = {
+    println("begin FXProperty.apply(_ : T")
+    val res = apply(new SimpleObjectProperty[T](x))
+    println("finish FXProperty.apply(_ : T")
+    res
+  }
 
 
   trait PropertyInstances {

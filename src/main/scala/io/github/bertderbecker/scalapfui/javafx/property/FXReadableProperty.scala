@@ -5,7 +5,7 @@ import javafx.beans.value.{ChangeListener, ObservableValue}
 
 import cats.{Functor, Monad}
 import io.github.bertderbecker.scalapfui.extras.Includes._
-import io.github.bertderbecker.scalapfui.property.{NestedReadableProperty, Property, ReadableProperty}
+import io.github.bertderbecker.scalapfui.property.ReadableProperty
 
 import scala.collection.mutable
 
@@ -64,13 +64,6 @@ object FXReadableProperty {
 
     implicit val readablePropertyMonad: Monad[ReadableProperty] = new Monad[ReadableProperty] {
 
-
-      /*
-      override def map[A, B](fa: ReadableProperty[A])(f: (A) => B): ReadableProperty[B] =
-        readablePropertyFunctor.map(fa)(f)
-        */
-
-
       override def tailRecM[A, B](a: A)(f: (A) => ReadableProperty[Either[A, B]]): ReadableProperty[B] =
         flatMap(f(a)) {
           case Right(b) => pure(b)
@@ -79,7 +72,7 @@ object FXReadableProperty {
 
       override def flatMap[A, B](fa: ReadableProperty[A])(f: (A) => ReadableProperty[B]): ReadableProperty[B] = {
 
-        def bprop: ReadableProperty[ReadableProperty[B]] = readablePropertyFunctor.map(fa)(f)
+        val bprop: ReadableProperty[ReadableProperty[B]] = readablePropertyFunctor.map(fa)(f)
 
         new FXProperty[B](
           bprop
@@ -90,8 +83,8 @@ object FXReadableProperty {
         ) {
 
           bprop.onChange { newProp =>
-            newProp.onChange(jFXProperty.setValue)
-            newProp.value.ifDefined(jFXProperty.setValue)
+            newProp onChange jFXProperty.setValue
+            newProp.value ifDefined jFXProperty.setValue
           }
 
           bprop.onChange(_.onChange(this.update))
@@ -102,11 +95,11 @@ object FXReadableProperty {
                 bprop.removeOnChange((ao, aov, anv) => try {
                   anv.removeOnChange(op)
                 } catch {
-                  case e: Exception =>
+                  case ignored: Exception =>
                 })
               })
             } catch {
-              case e: Exception =>
+              case ignored: Exception =>
             }
 
           override def processOnChange(op: (ReadableProperty[B], B, B) => Unit): Unit = {

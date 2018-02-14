@@ -2,7 +2,7 @@ name := "scalapfui-javafx"
 
 organization := "io.github.bertderbecker"
 
-version := "0.0.11"
+version := "0.0.20"
 
 scalaVersion := "2.12.4"
 
@@ -10,7 +10,7 @@ isSnapshot := true
 
 resolvers += Resolver.mavenLocal
 
-libraryDependencies += "io.github.bertderbecker" %% "scalapfui-core" % "0.0.14"
+libraryDependencies += "io.github.bertderbecker" %% "scalapfui-core" % "0.0.20"
 
 libraryDependencies ++= Seq(
   "org.typelevel" %% "cats-core" % "1.0.0-MF"
@@ -34,3 +34,7 @@ initialize := {
   if (sys.props("java.specification.version") != "1.8")
     sys.error("Java 8 is required for this project.")
 }
+
+libraryDependencies += "org.scalactic" %% "scalactic" % "3.0.4"
+libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.4" % "test"
+//fork in run := true

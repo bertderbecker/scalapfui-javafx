@@ -1,20 +1,15 @@
 package io.github.bertderbecker.scalapfui.javafx.scene.control
 
-import javafx.event.{ActionEvent, Event, EventHandler}
-import javafx.scene.Node
+import javafx.event.{ActionEvent, Event}
 import javafx.scene.control.{ContextMenu, Menu, MenuItem => JFXMenuItem}
 import javafx.scene.input.KeyCombination
 import javafx.scene.{Node, Parent => JFXParent}
-import javafx.stage.Window
 
-import io.github.bertderbecker.scalapfui.Modifier
 import io.github.bertderbecker.scalapfui.attribute.{Attribute, ReadableAttribute}
-import io.github.bertderbecker.scalapfui.javafx.{FXElement, FXElementTag}
+import io.github.bertderbecker.scalapfui.javafx.FXElementTag
 import io.github.bertderbecker.scalapfui.javafx.Implicits._
 import io.github.bertderbecker.scalapfui.javafx.attribute.{FXAttribute, FXReadableAttribute}
 import io.github.bertderbecker.scalapfui.javafx.event.EventReactor
-import io.github.bertderbecker.scalapfui.javafx.property.FXProperty
-import io.github.bertderbecker.scalapfui.property.Property
 
 import scala.language.implicitConversions
 

@@ -6,12 +6,11 @@ import javafx.scene.Scene
 import javafx.scene.input.KeyCombination
 import javafx.stage.{Stage => JFXStage}
 
-import io.github.bertderbecker.scalapfui.Modifier
 import io.github.bertderbecker.scalapfui.attribute.{Attribute, ReadableAttribute}
-import io.github.bertderbecker.scalapfui.javafx.{FXElement, FXElementTag}
 import io.github.bertderbecker.scalapfui.javafx.Implicits._
 import io.github.bertderbecker.scalapfui.javafx.attribute.{FXAttribute, FXReadableAttribute, FXSimpleWritableAttribute}
 import io.github.bertderbecker.scalapfui.javafx.property.FXProperty
+import io.github.bertderbecker.scalapfui.javafx.{FXElement, FXElementTag}
 
 //Ready
 object StageExts {
