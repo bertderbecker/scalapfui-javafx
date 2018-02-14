@@ -45,7 +45,9 @@ object FXAttribute extends AttributeCompanion[Attribute, JFXProperty] {
       override val propertyExtr: Native => Property[T] = propertyExtractor
     }
 
-  def forEventReactor[E <: Event, Native](property: Native => JFXProperty[EventHandler[E]]): Attribute[EventReactor[E], Native] =
+  def forEventReactor[E <: Event, Native](
+                                           property: Native => JFXProperty[EventHandler[E]]
+                                         ): Attribute[EventReactor[E], Native] =
 
     FXAttribute.apply[EventReactor[E], Native] { native =>
       val p = new SimpleObjectProperty[EventReactor[E]]()
@@ -55,8 +57,9 @@ object FXAttribute extends AttributeCompanion[Attribute, JFXProperty] {
       p
     }
 
-  def forEventReactorConformist[E <: Event, Native](property: Native => JFXProperty[_ >: EventHandler[E]]): Attribute[EventReactor[E], Native] =
-
+  def forEventReactorConformist[E <: Event, Native](
+                                                     property: Native => JFXProperty[_ >: EventHandler[E]]
+                                                   ): Attribute[EventReactor[E], Native] =
     FXAttribute.apply[EventReactor[E], Native] { native =>
       val p = new SimpleObjectProperty[EventReactor[E]]()
       p.onChange { newValue =>
