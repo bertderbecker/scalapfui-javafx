@@ -10,9 +10,9 @@ trait JFXApp {
   def primaryStage: FXElement[Stage] = JFXApp.wrappedStage() //NOT USE!!!!
 
   def primaryStage_=(newStage: => FXElement[Stage]): Unit = {
-    println("define primaryStage")
+    //println("define primaryStage")
     JFXApp.wrappedStage = () => newStage
-    println("finish defining primaryStage")
+    //println("finish defining primaryStage")
   }
 
   private val subClassInitCode = new ListBuffer[() => Unit]

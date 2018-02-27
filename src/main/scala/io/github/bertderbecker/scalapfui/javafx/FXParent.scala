@@ -13,6 +13,10 @@ class FXParent[Native <: JFXParent](pure: () => Native, val childrenExtr: Native
   extends FXElement[Native](pure, modifiers: _*)
     with Parent[Native] {
 
+
+  def parentWithAddedModifier(m: Modifier[_, Native]) =
+    new FXParent[Native](pureElement, childrenExtr)(modifiers :+ m:_*)(children:_*)
+
   def childListOf(obj: Native): ObservableList[Node] = childrenExtr(obj)
 
   override def addChild[T](pure: Native, child: T): Unit = child match {

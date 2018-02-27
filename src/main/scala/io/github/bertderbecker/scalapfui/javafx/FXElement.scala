@@ -6,6 +6,8 @@ import io.github.bertderbecker.scalapfui.{Element, Modifier}
 class FXElement[Native](val pureElement: () => Native,
                         override val modifiers: Modifier[_, Native]*) extends Element[Native] {
 
+  def elementWithAddedModifier(m: Modifier[_, Native]) =
+    new FXElement[Native](pureElement, modifiers :+ m:_*)
 
   override val pure: () => Native = pureElement
 

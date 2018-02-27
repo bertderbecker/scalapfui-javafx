@@ -32,16 +32,16 @@ case class FXProperty[T](jFXProperty: JFXProperty[T])
 object FXProperty {
 
   def apply[T](jFXProperty: => JFXProperty[T]): Property[T] = {
-    println("begin FXProperty.apply(_ : => JFXProperty")
+    //println("begin FXProperty.apply(_ : => JFXProperty")
     val res = new FXProperty(jFXProperty)
-    println("finish FXProperty.apply(_ : => JFXProperty")
+    //println("finish FXProperty.apply(_ : => JFXProperty")
     res
   }
 
   def apply[T](x: T): Property[T] = {
-    println("begin FXProperty.apply(_ : T")
+    //println("begin FXProperty.apply(_ : T")
     val res = apply(new SimpleObjectProperty[T](x))
-    println("finish FXProperty.apply(_ : T")
+    //println("finish FXProperty.apply(_ : T")
     res
   }
 

@@ -1,6 +1,5 @@
 package io.github.bertderbecker.scalapfui.javafx.test
 
-import javafx.scene.Node
 import javafx.scene.layout.{Pane => JFXPane, VBox => JFXVBox}
 
 import io.github.bertderbecker.scalapfui.attribute.StoredReadableAttribute
@@ -15,7 +14,6 @@ import io.github.bertderbecker.scalapfui.javafx.scene.control.TextFieldExts._
 import io.github.bertderbecker.scalapfui.javafx.scene.layout.OrderedBoxes._
 import io.github.bertderbecker.scalapfui.javafx.stage.StageExts._
 import io.github.bertderbecker.scalapfui.javafx.{FXParent, JFXApp}
-import io.github.bertderbecker.scalapfui.property.ReadableProperty
 
 import scala.language.postfixOps
 
@@ -27,27 +25,27 @@ object Test extends JFXApp {
   val stageHeight: StoredReadableAttribute[Double] = FXStoredReadableAttribute[Double]()
 
   def buildLayout(x: Int): FXParent[JFXVBox] = {
-    println("buildLayout")
-      VBox(
-        MenuBar(
-          Menu(
-            MenuItem(
-              menuItem.text := "" + x + " Actions",
-              menuItem.onAction := rebuild(_ => buildLayout(x + 1))
-            )
-          )(
-            menu.text := "Menu"
+    //println("buildLayout")
+    VBox(
+      MenuBar(
+        Menu(
+          MenuItem(
+            menuItem.text := "" + x + " Actions",
+            menuItem.onAction := rebuild(_ => buildLayout(x + 1))
           )
         )(
-          menuBar.prefWidth <== menuBar.layoutX
-        ),
-        TextField(
-          textField.text := "" + x + " Actions",
-          textField.text ==> textFieldText,
-          textField.onAction := modify(textFieldText := "entered !!"),
-          textField.onMouseReleased := EventReactor.rebuild(_ => buildLayout(x - 1))
+          menu.text := "Menu"
         )
-      )()
+      )(
+        menuBar.prefWidth <== menuBar.layoutX
+      ),
+      TextField(
+        textField.text := "" + x + " Actions",
+        textField.text ==> textFieldText,
+        textField.onAction := modify(textFieldText := "entered !!"),
+        textField.onMouseReleased := EventReactor.rebuild(_ => buildLayout(x - 1))
+      )
+    )()
   }
 
   primaryStage =

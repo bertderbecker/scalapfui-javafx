@@ -16,10 +16,7 @@ import io.github.bertderbecker.scalapfui.javafx.geometry.Insets
 object LabeledExts {
 
   //Alignment is ready
-
-
-
-  trait Attributes {
+  trait Attributes extends ControlExts.Attributes {
 
     val alignment: Attribute[Pos, Labeled] = FXAttribute.apply[Pos, Labeled](_.alignmentProperty())
 

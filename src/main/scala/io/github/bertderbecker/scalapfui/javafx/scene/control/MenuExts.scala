@@ -14,15 +14,14 @@ import scala.language.{higherKinds, implicitConversions}
 
 object MenuExts {
 
-  val Menu: (FXElement[_ <: MenuItem]*) => FXElementTag[JFXMenu] =
-    (items: Seq[FXElement[_ <: MenuItem]]) =>
-      FXElementTag(
-        () => {
-          val m = new JFXMenu()
-          m.getItems.addAll(items.map(_.render): _*)
-          m
-        }
-      )
+  def Menu(items: FXElement[_ <: MenuItem]*): FXElementTag[JFXMenu] =
+    FXElementTag(
+      () => {
+        val m = new JFXMenu()
+        m.getItems.addAll(items.map(_.render): _*)
+        m
+      }
+    )
 
   trait Attributes extends MenuItemExts.Attributes {
 

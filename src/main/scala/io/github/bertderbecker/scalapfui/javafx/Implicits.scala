@@ -7,6 +7,7 @@ import io.github.bertderbecker.scalapfui.Math.MathInstances
 import io.github.bertderbecker.scalapfui.attribute.{Attribute, ReadableAttribute}
 import io.github.bertderbecker.scalapfui.extras.Includes
 import io.github.bertderbecker.scalapfui.javafx.attribute.FXReadableAttribute.ReadableAttributeInstances
+import io.github.bertderbecker.scalapfui.javafx.attribute.StoredReadableAttributeInstances
 import io.github.bertderbecker.scalapfui.javafx.geometry.Insets
 import io.github.bertderbecker.scalapfui.javafx.geometry.Insets.InsetInstances
 import io.github.bertderbecker.scalapfui.javafx.property.FXProperty.PropertyInstances
@@ -19,6 +20,7 @@ import scala.language.{higherKinds, implicitConversions}
 object Implicits
   extends ReadablePropertyInstances
     with ReadableAttributeInstances
+    with StoredReadableAttributeInstances
     with PropertyInstances
     with MathInstances
     with LabelInstances

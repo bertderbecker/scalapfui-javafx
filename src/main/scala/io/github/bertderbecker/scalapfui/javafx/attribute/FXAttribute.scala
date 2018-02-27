@@ -24,16 +24,16 @@ object FXAttribute extends AttributeCompanion[Attribute, JFXProperty] {
   def apply[T, Native](
                         propertyExtractor: Native => JFXProperty[T]
                       ): Attribute[T, Native] = {
-    println("begin FXAttribute.apply")
+    //println("begin FXAttribute.apply")
     val res = new Attribute[T, Native] {
       override val propertyExtr: Native => Property[T] = { native =>
-        println("begin propertyExtr in line FXAttribute.30 -> FXAttribute.apply")
+        //println("begin propertyExtr in line FXAttribute.30 -> FXAttribute.apply")
         val res = FXProperty(propertyExtractor(native))
-        println("finish propertyExtr in line FXAttribute.32 -> FXAttribute.apply")
+        //println("finish propertyExtr in line FXAttribute.32 -> FXAttribute.apply")
         res
       }
     }
-    println("finish FXAttribute.apply")
+    //println("finish FXAttribute.apply")
     res
   }
 
