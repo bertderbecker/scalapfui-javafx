@@ -24,8 +24,7 @@ object Test extends JFXApp {
   val stageWidth: StoredReadableAttribute[Double] = FXStoredReadableAttribute[Double]()
   val stageHeight: StoredReadableAttribute[Double] = FXStoredReadableAttribute[Double]()
 
-  def buildLayout(x: Int): FXParent[JFXVBox] = {
-    //println("buildLayout")
+  def buildLayout(x: Int): FXParent[JFXVBox] =
     VBox(
       MenuBar(
         Menu(
@@ -46,7 +45,6 @@ object Test extends JFXApp {
         textField.onMouseReleased := EventReactor.rebuild(_ => buildLayout(x - 1))
       )
     )()
-  }
 
   primaryStage =
     Stage(

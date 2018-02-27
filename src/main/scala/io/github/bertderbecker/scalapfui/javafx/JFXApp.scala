@@ -10,9 +10,7 @@ trait JFXApp {
   def primaryStage: FXElement[Stage] = JFXApp.wrappedStage() //NOT USE!!!!
 
   def primaryStage_=(newStage: => FXElement[Stage]): Unit = {
-    //println("define primaryStage")
     JFXApp.wrappedStage = () => newStage
-    //println("finish defining primaryStage")
   }
 
   private val subClassInitCode = new ListBuffer[() => Unit]
@@ -22,7 +20,6 @@ trait JFXApp {
   }
 
   def main(args: Array[String]): Unit = {
-    //println("Main")
     JFXApp.ActiveApp = this
     Application.launch(classOf[JFXApp.AppHelper], args: _*)
   }
@@ -45,8 +42,6 @@ object JFXApp {
       JFXApp.ActiveJFXApp = this
       JFXApp.Stage = JFXApp.getUserDefinedStage(stage)
       JFXApp.ActiveApp.init()
-      //println("Scene root: " + JFXApp.Stage.getScene.getRoot)
-      //println("Scene root children: " + JFXApp.Stage.getScene.getRoot.getChildrenUnmodifiable)
       if (JFXApp.AutoShow) {
         JFXApp.Stage.show()
       }

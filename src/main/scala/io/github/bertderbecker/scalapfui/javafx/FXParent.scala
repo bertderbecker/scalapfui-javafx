@@ -21,10 +21,8 @@ class FXParent[Native <: JFXParent](pure: () => Native, val childrenExtr: Native
 
   override def addChild[T](pure: Native, child: T): Unit = child match {
     case p: LabeledPair[_] =>
-      //println("Add LabeledPair")
       p.addToParent(childListOf(pure))
     case n: Node =>
-      //println("Add Node to " + pure.toString)
       childListOf(pure).add(n)
     case _ => throw new IllegalArgumentException("Child is not a node!")
   }
