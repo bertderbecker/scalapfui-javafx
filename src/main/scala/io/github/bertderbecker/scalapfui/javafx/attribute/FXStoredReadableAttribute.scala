@@ -1,13 +1,12 @@
 package io.github.bertderbecker.scalapfui.javafx.attribute
 
-import java.lang.annotation.Native
 import javafx.beans.property.SimpleObjectProperty
 
-import cats.{FlatMap, Functor}
-import io.github.bertderbecker.scalapfui.attribute.{ReadableAttribute, StoredReadableAttribute}
+import cats.Functor
+import io.github.bertderbecker.scalapfui.attribute.StoredReadableAttribute
 import io.github.bertderbecker.scalapfui.javafx.Implicits
 import io.github.bertderbecker.scalapfui.javafx.property.FXProperty
-import io.github.bertderbecker.scalapfui.property.{Property, ReadableProperty}
+import io.github.bertderbecker.scalapfui.property.Property
 
 import scala.language.implicitConversions
 
@@ -16,6 +15,7 @@ case class FXStoredReadableAttribute[T]() extends StoredReadableAttribute[T] {
   override val property: Property[T] = FXProperty.apply(new SimpleObjectProperty[T]())
 
 }
+
 trait StoredReadableAttributeInstances {
 
   implicit def storedReadableAttributeFunctor: Functor[StoredReadableAttribute] =

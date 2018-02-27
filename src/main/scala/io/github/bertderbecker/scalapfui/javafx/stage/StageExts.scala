@@ -83,9 +83,8 @@ object StageExts {
       FXReadableAttribute[java.lang.Double, JFXStage](_.widthProperty().asObject())
 
   }
-  
-  object stage extends Attributes
 
+  object stage extends Attributes
 
 
 }

@@ -15,7 +15,7 @@ class FXParent[Native <: JFXParent](pure: () => Native, val childrenExtr: Native
 
 
   def parentWithAddedModifier(m: Modifier[_, Native]) =
-    new FXParent[Native](pureElement, childrenExtr)(modifiers :+ m:_*)(children:_*)
+    new FXParent[Native](pureElement, childrenExtr)(modifiers :+ m: _*)(children: _*)
 
   def childListOf(obj: Native): ObservableList[Node] = childrenExtr(obj)
 

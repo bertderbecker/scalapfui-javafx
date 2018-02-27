@@ -110,7 +110,6 @@ object Implicits
     }
 
 
-
   implicit def jDoubleAttr2scalaDoubleAttr[N](
                                                jattr: Attribute[java.lang.Double, N]
                                              ): Attribute[Double, N] =
@@ -118,7 +117,6 @@ object Implicits
       override val propertyExtr: N => Property[scala.Double] =
         native => jDoubleProperty2scalaProperty(jattr.propertyExtr(native))
     }
-
 
 
   implicit def jBooleanAttr2scalaBooleanAttr[N](
@@ -191,7 +189,6 @@ object Implicits
       override val propertyExtr: N => Property[Insets] =
         native => jInsetsProperty2scalaProperty(jattr.propertyExtr(native))
     }
-
 
 
   implicit def jDoubleProperty2scalaProperty(jprop: Property[java.lang.Double]): Property[scala.Double] =

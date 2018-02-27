@@ -49,6 +49,7 @@ object Conditions {
   }
 
   def when[T](prop: ReadableProperty[Boolean]): PropCondition[T] = PropCondition(prop)
+
   def when[T, N](prop: ReadableAttribute[Boolean, N]): AttrCondition[T, N] = AttrCondition(prop)
 
 }

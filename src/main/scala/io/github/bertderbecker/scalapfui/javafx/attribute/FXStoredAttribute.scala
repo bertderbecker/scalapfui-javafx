@@ -14,6 +14,7 @@ case class FXStoredAttribute[T](override val initValue: Option[T]) extends Store
 object FXStoredAttribute {
 
   def apply[T](initValue: T): FXStoredAttribute[T] = FXStoredAttribute(Some(initValue))
+
   def apply[T](): FXStoredAttribute[T] = FXStoredAttribute(None)
 
 }

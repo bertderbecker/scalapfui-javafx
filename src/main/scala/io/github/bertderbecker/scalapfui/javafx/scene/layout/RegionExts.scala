@@ -34,7 +34,7 @@ object RegionExts {
         propertyInvariant.imap(
           FXProperty[JFXBackground](native.backgroundProperty())
         ) { b: JFXBackground =>
-            b.getFills.get(0).getFill
+          b.getFills.get(0).getFill
         } { p: Paint =>
           new JFXBackground(new BackgroundFill(p, CornerRadii.EMPTY, JFXInsets.EMPTY))
         }
