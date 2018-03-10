@@ -1,5 +1,5 @@
 # scalapfui-javafx
-A work-in-progress implementation of scalapfui for JavaFX.
+A sample implementation of scalapfui for some concepts of JavaFX.
 
 Here's an example:
 
